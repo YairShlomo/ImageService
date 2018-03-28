@@ -8,7 +8,10 @@ using System.ServiceProcess;
 using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.InteropServices;
-
+using ImageService.Server;
+using ImageService.Modal;
+using ImageService.Controller;
+using ImageService.Logging;
 using System.Security.Permissions;[assembly: PermissionSetAttribute(SecurityAction.RequestMinimum, Name="Internet")]
 [assembly: PermissionSetAttribute(SecurityAction.RequestOptional, Unrestricted=true)]
 
@@ -39,6 +42,10 @@ namespace ImageService
     public partial class ImageService : ServiceBase
     {
         private int eventId = 1;
+        private ImageServer m_imageServer;
+        private IImageServiceModal modal;
+        private IImageController controller;
+        private ILoggingService logging;
         public ImageService(string[] args)
         {
             InitializeComponent();
