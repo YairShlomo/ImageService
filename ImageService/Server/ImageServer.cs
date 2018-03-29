@@ -22,6 +22,24 @@ namespace ImageService.Server
         public event EventHandler<CommandRecievedEventArgs> CommandRecieved;          // The event that notifies about a new Command being recieved
         #endregion
 
-       
+        public ImageServer(ILoggingService loggingService, IImageController imageController)
+        {
+            m_logging = loggingService;
+            m_controller = imageController;
+            string[] dirPaths = ConfigurationSettings.AppSettings["Handler"].Split(';');
+            foreach (string path in dirPaths)
+            {
+                //**need to check that dirPath is valid??***
+                //**************************************
+                CreateHandler(path);
+            }
+        }
+
+        public void CreateHandler(string dirPath)
+        {
+
+        
+        }
     }
+       
 }

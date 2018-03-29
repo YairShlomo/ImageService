@@ -22,7 +22,7 @@ namespace ImageService.Modal
         private ILoggingService ls;
 
         #endregion
-        string AddFile(string path, out bool result) {
+        public string AddFile(string path, out bool result) {
             result = true;
             if (!File.Exists(path))   {
                 result = false;

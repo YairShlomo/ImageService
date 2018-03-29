@@ -18,14 +18,20 @@ namespace ImageService.Controller
         public ImageController(IImageServiceModal modal)
         {
             m_modal = modal;                    // Storing the Modal Of The System
+            CommandEnum y = CommandEnum.NewFileCommand;
             commands = new Dictionary<int, ICommand>()
             {
-				// For Now will contain NEW_FILE_COMMAND
-            };
+                // For Now will contain NEW_FILE_COMMAND
+                {(int)y, new NewFileCommand(m_modal) }
+
+        };
         }
         public string ExecuteCommand(int commandID, string[] args, out bool resultSuccesful)
         {
-           // Write Code Here
+
+            ICommand commandObj = commands[commandID];
+            return commandObj.Execute(args, out resultSuccesful);
+
         }
     }
 }
