@@ -12,9 +12,8 @@ using ImageService.Server;
 using ImageService.Modal;
 using ImageService.Controller;
 using ImageService.Logging;
-using System.Security.Permissions;[assembly: PermissionSetAttribute(SecurityAction.RequestMinimum, Name="Internet")]
-[assembly: PermissionSetAttribute(SecurityAction.RequestOptional, Unrestricted=true)]
-
+//using System.Security.Permissions;[assembly: PermissionSetAttribute(SecurityAction.RequestMinimum, Name="Internet")]
+//[assembly: PermissionSetAttribute(SecurityAction.RequestOptional, Unrestricted=true)]
 namespace ImageService
 {
     public enum ServiceState
@@ -48,6 +47,7 @@ namespace ImageService
         private ILoggingService logging;
         public ImageService(string[] args)
         {
+           
             InitializeComponent();
             string eventSourceName = "MySource";
             string logName = "MyNewLog";
@@ -70,6 +70,11 @@ namespace ImageService
 
         protected override void OnStart(string[] args)
         {
+            modal = new ImageServiceModal();
+            logging = new LoggingService();
+            controller = new ImageController(modal);
+            m_imageServer = new ImageServer(logging, controller);
+           
             // Update the service state to Start Pending.  
             ServiceStatus serviceStatus = new ServiceStatus();
             serviceStatus.dwCurrentState = ServiceState.SERVICE_START_PENDING;

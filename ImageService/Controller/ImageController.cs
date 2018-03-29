@@ -28,10 +28,8 @@ namespace ImageService.Controller
         }
         public string ExecuteCommand(int commandID, string[] args, out bool resultSuccesful)
         {
-
             ICommand commandObj = commands[commandID];
             return commandObj.Execute(args, out resultSuccesful);
-
         }
     }
 }

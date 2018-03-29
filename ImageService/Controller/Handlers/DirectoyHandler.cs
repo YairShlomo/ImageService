@@ -20,11 +20,13 @@ namespace ImageService.Controller.Handlers
         private IImageController m_controller;              // The Image Processing Controller
         private ILoggingService m_logging;
         private FileSystemWatcher m_dirWatcher;             // The Watcher of the Dir
-        private string m_path;                              // The Path of directory
+        //private string m_path;                              // The Path of directory
         private string[] extensionsToListen = { "*.jpg", "*.gif", "*.png", "*.bmp" };   // List for valid extensions.
         #endregion
-        public DirectoyHandler(string dirPath)
+        public DirectoyHandler(string dirPath, ILoggingService loggingService, IImageController imageController)
         {
+            m_logging = loggingService;
+            m_controller = imageController;
             StartHandleDirectory(dirPath);
         }
         public event EventHandler<DirectoryCloseEventArgs> DirectoryClose;             // The Event That Notifies that the Directory is being closed
@@ -62,7 +64,7 @@ namespace ImageService.Controller.Handlers
             string fileExtension = Path.GetExtension(argsFullPath);
             if (extensionsToListen.Contains(fileExtension))
             {
-                CommandRecievedEventArgs commandArgs = new CommandRecievedEventArgs(1, args, fileExtension);
+                CommandRecievedEventArgs commandArgs = new CommandRecievedEventArgs((int)CommandEnum.NewFileCommand, args, fileExtension);
                 OnCommandRecieved(this, commandArgs);
             }
         }

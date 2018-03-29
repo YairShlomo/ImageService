@@ -8,7 +8,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using System.Collections.Specialized;
+using System.Configuration;
 namespace ImageService.Server
 {
     public class ImageServer
@@ -26,7 +27,8 @@ namespace ImageService.Server
         {
             m_logging = loggingService;
             m_controller = imageController;
-            string[] dirPaths = ConfigurationSettings.AppSettings["Handler"].Split(';');
+            
+            string[] dirPaths = ConfigurationManager.AppSettings["Handler"].Split(';');
             foreach (string path in dirPaths)
             {
                 //**need to check that dirPath is valid??***
@@ -37,8 +39,18 @@ namespace ImageService.Server
 
         public void CreateHandler(string dirPath)
         {
+            IDirectoryHandler dirHandler = new DirectoyHandler(dirPath, m_logging, m_controller);
+            CommandRecieved += dirHandler.OnCommandRecieved;
+            dirHandler.DirectoryClose += onClose;
 
-        
+        }
+        public void onClose(object o, DirectoryCloseEventArgs dirArgs)
+        {
+            IDirectoryHandler dirHandler = (IDirectoryHandler)o;
+            CommandRecieved -= dirHandler.OnCommandRecieved;
+            string closingMessage = "The directory: " + dirArgs.DirectoryPath + "was closed";
+            m_logging.Log(closingMessage, Logging.Modal.MessageTypeEnum.INFO);
+
         }
     }
        
