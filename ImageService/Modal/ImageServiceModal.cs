@@ -30,53 +30,45 @@ namespace ImageService.Modal
             get { return m_thumbnailSize; }
             set { m_thumbnailSize = value; }
         }
-        
-        
 
         #endregion
         public string AddFile(string path, out bool result)
         {
-            
             result = true;
             try
             {
                 string strResult;
-
                 if (File.Exists(path))
                 {
-                    if (!Directory.Exists(path))
-                    {
-                        
-                        
-                        Directory.CreateDirectory(OutputFolder);
-                    }
+                    //create output directory if doesnt exist
+                    Directory.CreateDirectory(OutputFolder);
                     string fullNamePath = Path.GetFileName(path);
                     string thumbnailPath = OutputFolder + "\\Thumbnails";
                     Directory.CreateDirectory(thumbnailPath);
                     DateTime creation = File.GetCreationTime(path);
-                    string year = creation.Year.ToString();
-                    string month = creation.Month.ToString();
-                    Directory.CreateDirectory(OutputFolder + "\\" + year);
-                    Directory.CreateDirectory(thumbnailPath + "\\" + year);
-                    //Create the directory for the month
-                    DirectoryInfo locationToCopy = Directory.CreateDirectory(OutputFolder + "\\" + year + "\\" + month);
-                    DirectoryInfo locationToCopyThumbnail = Directory.CreateDirectory(thumbnailPath + "\\" + year + "\\" + month);
-                    File.Copy(path, locationToCopy.ToString());
+                    string yearOfCreation = creation.Year.ToString();
+                    string monthOfCreation = creation.Month.ToString();
+                    Directory.CreateDirectory(OutputFolder + "\\" + yearOfCreation);
+                    Directory.CreateDirectory(thumbnailPath + "\\" + yearOfCreation);
+                    //Create the directory for the monthOfCreation
+                    DirectoryInfo targetPath = Directory.CreateDirectory(OutputFolder + "\\" + yearOfCreation + "\\" + monthOfCreation);
+                    DirectoryInfo targetPathThumbnail = Directory.CreateDirectory(thumbnailPath + "\\" + yearOfCreation + "\\" + monthOfCreation);
+                    File.Copy(path, targetPath.ToString());
                     //Save the thumbnail image.
                     Image thumbImage = Image.FromFile(path);
                     thumbImage = thumbImage.GetThumbnailImage(m_thumbnailSize, m_thumbnailSize, () => false, IntPtr.Zero);
-                    thumbImage.Save(locationToCopyThumbnail.ToString() + "\\" + fullNamePath);
+                    thumbImage.Save(targetPathThumbnail.ToString() + "\\" + fullNamePath);
 
                     result = true;
-                    return locationToCopy.ToString() + "\\" + fullNamePath;
+                    return targetPath.ToString() + "\\" + fullNamePath;
                 }
                 else
                 {
                     result = false;
-                    strResult = "File didnt added-wrong Image path ";
+                    strResult = "File didn't added-wrong Image path ";
 
                 }
-                
+
                 if (result)
                 {
                     strResult = "File added Successfully ";
