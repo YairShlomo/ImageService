@@ -45,9 +45,14 @@ namespace ImageService
         private IImageServiceModal modal;
         private IImageController controller;
         private ILoggingService logging;
+        private Debug_program debug;
+
         public ImageService(string[] args)
         {
-           
+            debug = new Debug_program();
+            debug.write("constructor ImageService");
+            
+
             InitializeComponent();
             string eventSourceName = "MySource";
             string logName = "MyNewLog";
@@ -70,6 +75,8 @@ namespace ImageService
 
         protected override void OnStart(string[] args)
         {
+            debug.write("onstart ImageService");
+
             modal = new ImageServiceModal();
             logging = new LoggingService();
             controller = new ImageController(modal);

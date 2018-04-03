@@ -17,6 +17,7 @@ namespace ImageService.Controller.Handlers
     public class DirectoyHandler : IDirectoryHandler
     {
         #region Members
+        private Debug_program debug;
         private IImageController m_controller;              // The Image Processing Controller
         private ILoggingService m_logging;
         private FileSystemWatcher m_dirWatcher;             // The Watcher of the Dir
@@ -25,39 +26,42 @@ namespace ImageService.Controller.Handlers
         #endregion
         public DirectoyHandler(string dirPath, ILoggingService loggingService, IImageController imageController)
         {
+            debug = new Debug_program();
             m_logging = loggingService;
             m_controller = imageController;
             StartHandleDirectory(dirPath);
         }
         public event EventHandler<DirectoryCloseEventArgs> DirectoryClose;             // The Event That Notifies that the Directory is being closed
 
-        // Implement Here!
+        
         public void StartHandleDirectory(string dirPath)
         {
+            debug.write("StartHandleDirectory\n");
             string startMessage = "Handling directory: " + dirPath;
             m_logging.Log(startMessage, MessageTypeEnum.INFO);
-            initializeWatcher(dirPath);
-            m_dirWatcher.Created += startWatching;
+            InitializeWatcher(dirPath);
+           // m_dirWatcher.Created += StartWatching;
         }
         public void OnCommandRecieved(object sender, CommandRecievedEventArgs e)
         {
+            debug.write("on command recived");
             bool result;
             m_controller.ExecuteCommand(e.CommandID, e.Args,out result);
         }
 
-        public void initializeWatcher(string dirPath)
+        public void InitializeWatcher(string dirPath)
         {
-            this.m_dirWatcher = new FileSystemWatcher();
+            m_dirWatcher = new FileSystemWatcher();
             m_dirWatcher.Path = dirPath;
             m_dirWatcher.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite
                                    | NotifyFilters.FileName | NotifyFilters.DirectoryName;
             m_dirWatcher.Filter = "*.*";
-            m_dirWatcher.Created += new FileSystemEventHandler(startWatching);
+            m_dirWatcher.Created += new FileSystemEventHandler(StartWatching);
             m_dirWatcher.EnableRaisingEvents = true;
 
         }
         //checks if extension exist in extensionsToListen. if yes-use CommandRecievedEventArgs to notice.
-        private void startWatching(object o, FileSystemEventArgs comArgs)
+        private void StartWatching(object o, FileSystemEventArgs comArgs)
         {
             string argsFullPath = comArgs.FullPath;
             string[] args = { comArgs.FullPath };

@@ -50,6 +50,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Debug_program.cs" />
     <Compile Include="Commands\ICommand.cs" />
     <Compile Include="Commands\NewFileCommand.cs" />
     <Compile Include="Controller\Handlers\DirectoyHandler.cs" />
@@ -97,11 +98,25 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="bin\Debug\ImageService.exe" />
-    <Content Include="bin\Debug\ImageService.pdb" />
+    <Folder Include="bin\Release\" />
+    <Folder Include="obj\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="obj\" />
+    <Content Include="bin\Debug\ImageService.exe" />
+    <Content Include="bin\Debug\ImageService.pdb" />
+    <Content Include="bin\Debug\Microsoft.VisualStudio.ImageCatalog.dll" />
+    <Content Include="bin\Debug\Microsoft.VisualStudio.ImageCatalog.xml" />
+    <Content Include="bin\Debug\Microsoft.VisualStudio.Imaging.dll" />
+    <Content Include="bin\Debug\Microsoft.VisualStudio.Imaging.xml" />
+    <Content Include="bin\Debug\Microsoft.VisualStudio.Threading.dll" />
+    <Content Include="bin\Debug\Microsoft.VisualStudio.Threading.xml" />
+    <Content Include="bin\Debug\Microsoft.VisualStudio.Utilities.dll" />
+    <Content Include="bin\Debug\Microsoft.VisualStudio.Utilities.xml" />
+    <Content Include="bin\Debug\Microsoft.VisualStudio.Validation.dll" />
+    <Content Include="bin\Debug\Microsoft.VisualStudio.Validation.xml" />
+    <Content Include="bin\Debug\stdole.dll" />
+    <Content Include="bin\Debug\StreamJsonRpc.dll" />
+    <Content Include="bin\Debug\System.Threading.Tasks.Dataflow.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

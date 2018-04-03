@@ -30,16 +30,19 @@ namespace ImageService.Modal
             get { return m_thumbnailSize; }
             set { m_thumbnailSize = value; }
         }
-
         #endregion
         public string AddFile(string path, out bool result)
         {
+
             result = true;
             try
             {
                 string strResult;
                 if (File.Exists(path))
                 {
+
+                    Debug_program debug = new Debug_program();
+                     debug.write("addfile");
                     //create output directory if doesnt exist
                     Directory.CreateDirectory(OutputFolder);
                     string fullNamePath = Path.GetFileName(path);
@@ -58,7 +61,6 @@ namespace ImageService.Modal
                     Image thumbImage = Image.FromFile(path);
                     thumbImage = thumbImage.GetThumbnailImage(m_thumbnailSize, m_thumbnailSize, () => false, IntPtr.Zero);
                     thumbImage.Save(targetPathThumbnail.ToString() + "\\" + fullNamePath);
-
                     result = true;
                     return targetPath.ToString() + "\\" + fullNamePath;
                 }
