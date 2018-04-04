@@ -57,8 +57,8 @@ namespace ImageService.Modal
                 {
 
                     Debug_program debug = new Debug_program();
-                     debug.write("addfile");
-                    debug.write("addfile");
+                    // debug.write("addfile");
+                   // debug.write("addfile");
 
                     //create output directory if doesnt exist
                     Directory.CreateDirectory(OutputFolder);
@@ -77,17 +77,16 @@ namespace ImageService.Modal
                     string targetPathThumbnail= thumbnailPath + "\\" + yearOfCreation + "\\" + monthOfCreation;
                     DirectoryInfo dirThumbnail = Directory.CreateDirectory(thumbnailPath + "\\" + yearOfCreation + "\\" + monthOfCreation);
                     
-                    File.Copy(path, targetPath,true);
-                    debug.write(path);
-                    debug.write(targetPathDir);
-                    debug.write("1");
+                    File.Move(path, targetPath);
+                   // debug.write("path:");
+                 //   debug.write(path);
+                   // debug.write(targetPathDir);
+                 //   debug.write("1");
                     //Save the thumbnail image.
-                    Image thumbImage = Image.FromFile(path);
-                    debug.write(targetPathThumbnail.ToString() + "\\" + fullNamePath);
-                    thumbImage = thumbImage.GetThumbnailImage(m_thumbnailSize, m_thumbnailSize, () => false, IntPtr.Zero);
-                    debug.write(targetPathThumbnail.ToString() + "\\" + fullNamePath);
+                    Image thumbImage = Image.FromFile(targetPath);                   
+                    thumbImage = thumbImage.GetThumbnailImage(m_thumbnailSize, m_thumbnailSize, () => false, IntPtr.Zero);                    
                     thumbImage.Save(targetPathThumbnail.ToString() + "\\" + fullNamePath);
-                    debug.write(targetPathThumbnail.ToString() + "\\" + fullNamePath);
+                    debug.write("debug");
                     result = true;
                     return targetPath.ToString() + "\\" + fullNamePath;
                 }
