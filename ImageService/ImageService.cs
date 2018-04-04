@@ -78,6 +78,8 @@ namespace ImageService
             debug.write("onstart ImageService");
 
             modal = new ImageServiceModal();
+
+            
             logging = new LoggingService();
             controller = new ImageController(modal);
             m_imageServer = new ImageServer(logging, controller);

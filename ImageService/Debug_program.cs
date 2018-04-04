@@ -15,7 +15,9 @@ namespace ImageService
         }
         public void write(string message)
         {
-            File.WriteAllText(path, message);
+            using (System.IO.StreamWriter file =
+            new System.IO.StreamWriter(path,true))
+                file.WriteLine(message);
         }
     }
 }

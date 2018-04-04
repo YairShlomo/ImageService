@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 //using ImageService.Modal;
 using ImageService.Logging;
 using ImageService.Logging.Modal;
-
+using System.Configuration;
 namespace ImageService.Modal
 {
     public class ImageServiceModal : IImageServiceModal
@@ -20,6 +20,20 @@ namespace ImageService.Modal
         #region Members
         private string m_OutputFolder;            // The Output Folder
         private int m_thumbnailSize;              // The Size Of The Thumbnail Size
+        #endregion
+        public ImageServiceModal()
+        {
+            m_OutputFolder = ConfigurationManager.AppSettings["OutputDir"];
+            try
+            {
+                m_thumbnailSize = Int32.Parse(ConfigurationManager.AppSettings["ThumbnailSize"]);
+            }
+            catch (FormatException e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            // 
+        }
         public string OutputFolder
         {
             get { return m_OutputFolder; }
@@ -30,7 +44,8 @@ namespace ImageService.Modal
             get { return m_thumbnailSize; }
             set { m_thumbnailSize = value; }
         }
-        #endregion
+        
+
         public string AddFile(string path, out bool result)
         {
 
@@ -43,6 +58,8 @@ namespace ImageService.Modal
 
                     Debug_program debug = new Debug_program();
                      debug.write("addfile");
+                    debug.write("addfile");
+
                     //create output directory if doesnt exist
                     Directory.CreateDirectory(OutputFolder);
                     string fullNamePath = Path.GetFileName(path);
@@ -54,13 +71,23 @@ namespace ImageService.Modal
                     Directory.CreateDirectory(OutputFolder + "\\" + yearOfCreation);
                     Directory.CreateDirectory(thumbnailPath + "\\" + yearOfCreation);
                     //Create the directory for the monthOfCreation
-                    DirectoryInfo targetPath = Directory.CreateDirectory(OutputFolder + "\\" + yearOfCreation + "\\" + monthOfCreation);
-                    DirectoryInfo targetPathThumbnail = Directory.CreateDirectory(thumbnailPath + "\\" + yearOfCreation + "\\" + monthOfCreation);
-                    File.Copy(path, targetPath.ToString());
+                    string targetPathDir = OutputFolder + "\\" + yearOfCreation + "\\" + monthOfCreation;
+                    DirectoryInfo dir = Directory.CreateDirectory(targetPathDir);
+                    string targetPath = targetPathDir + "\\" + fullNamePath;
+                    string targetPathThumbnail= thumbnailPath + "\\" + yearOfCreation + "\\" + monthOfCreation;
+                    DirectoryInfo dirThumbnail = Directory.CreateDirectory(thumbnailPath + "\\" + yearOfCreation + "\\" + monthOfCreation);
+                    
+                    File.Copy(path, targetPath,true);
+                    debug.write(path);
+                    debug.write(targetPathDir);
+                    debug.write("1");
                     //Save the thumbnail image.
                     Image thumbImage = Image.FromFile(path);
+                    debug.write(targetPathThumbnail.ToString() + "\\" + fullNamePath);
                     thumbImage = thumbImage.GetThumbnailImage(m_thumbnailSize, m_thumbnailSize, () => false, IntPtr.Zero);
+                    debug.write(targetPathThumbnail.ToString() + "\\" + fullNamePath);
                     thumbImage.Save(targetPathThumbnail.ToString() + "\\" + fullNamePath);
+                    debug.write(targetPathThumbnail.ToString() + "\\" + fullNamePath);
                     result = true;
                     return targetPath.ToString() + "\\" + fullNamePath;
                 }

@@ -46,7 +46,8 @@ namespace ImageService.Controller.Handlers
         {
             debug.write("on command recived");
             bool result;
-            m_controller.ExecuteCommand(e.CommandID, e.Args,out result);
+            //m_logging.Log();
+            m_controller.ExecuteCommand(e.CommandID, e.Args, out result);
         }
 
         public void InitializeWatcher(string dirPath)
@@ -56,18 +57,22 @@ namespace ImageService.Controller.Handlers
             m_dirWatcher.NotifyFilter = NotifyFilters.LastAccess | NotifyFilters.LastWrite
                                    | NotifyFilters.FileName | NotifyFilters.DirectoryName;
             m_dirWatcher.Filter = "*.*";
-            m_dirWatcher.Created += new FileSystemEventHandler(StartWatching);
+            m_dirWatcher.Created += new FileSystemEventHandler(OnChanged);
             m_dirWatcher.EnableRaisingEvents = true;
 
         }
         //checks if extension exist in extensionsToListen. if yes-use CommandRecievedEventArgs to notice.
-        private void StartWatching(object o, FileSystemEventArgs comArgs)
+        private void OnChanged(object o, FileSystemEventArgs comArgs)
         {
+            debug.write("OnChanged");
+
             string argsFullPath = comArgs.FullPath;
             string[] args = { comArgs.FullPath };
             string fileExtension = Path.GetExtension(argsFullPath);
-            if (extensionsToListen.Contains(fileExtension))
+            debug.write(fileExtension);
+            if (extensionsToListen.Contains("*" + fileExtension))
             {
+               
                 CommandRecievedEventArgs commandArgs = new CommandRecievedEventArgs((int)CommandEnum.NewFileCommand, args, fileExtension);
                 OnCommandRecieved(this, commandArgs);
             }
