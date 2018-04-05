@@ -57,8 +57,8 @@ namespace ImageService.Modal
                 {
 
                     Debug_program debug = new Debug_program();
-                    // debug.write("addfile");
-                   // debug.write("addfile");
+                    debug.write("addfile");
+                   
 
                     //create output directory if doesnt exist
                     Directory.CreateDirectory(OutputFolder);
@@ -76,17 +76,19 @@ namespace ImageService.Modal
                     string targetPath = targetPathDir + "\\" + fullNamePath;
                     string targetPathThumbnail= thumbnailPath + "\\" + yearOfCreation + "\\" + monthOfCreation;
                     DirectoryInfo dirThumbnail = Directory.CreateDirectory(thumbnailPath + "\\" + yearOfCreation + "\\" + monthOfCreation);
-                    
+                    string pathExtension = Path.GetExtension(targetPath);
+                    targetPath = isFileExist(targetPath, pathExtension);
                     File.Move(path, targetPath);
-                   // debug.write("path:");
-                 //   debug.write(path);
-                   // debug.write(targetPathDir);
-                 //   debug.write("1");
+                   debug.write(path);
+                    debug.write(targetPath);
+                   debug.write(targetPathDir);
+                    debug.write("1");
                     //Save the thumbnail image.
-                    Image thumbImage = Image.FromFile(targetPath);                   
+                    Image thumbImage = Image.FromFile(targetPath);
+                    debug.write("2");
                     thumbImage = thumbImage.GetThumbnailImage(m_thumbnailSize, m_thumbnailSize, () => false, IntPtr.Zero);                    
                     thumbImage.Save(targetPathThumbnail.ToString() + "\\" + fullNamePath);
-                    debug.write("debug");
+                    debug.write("saved thumbImage ");
                     result = true;
                     return targetPath.ToString() + "\\" + fullNamePath;
                 }
@@ -112,6 +114,23 @@ namespace ImageService.Modal
                 return e.ToString();
             }
 
+        }
+
+        public string isFileExist(string targetPath, string pathExtension)
+        {
+            int counter = 1;
+            while (File.Exists(targetPath))
+            {
+                string noExtesnsion = targetPath.Replace(pathExtension, "");
+                int numericValue;
+                if (Int32.TryParse(noExtesnsion.Substring(noExtesnsion.Length - 1), out numericValue))
+                {
+                    noExtesnsion = noExtesnsion.Substring(0, noExtesnsion.Length - 1);
+                }
+                targetPath = noExtesnsion + counter + pathExtension;
+                counter++;
+            }
+            return targetPath;
         }
     }
 }

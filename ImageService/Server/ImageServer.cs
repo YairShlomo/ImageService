@@ -53,7 +53,6 @@ namespace ImageService.Server
             CommandRecieved -= dirHandler.OnCommandRecieved;
             string closingMessage = "The directory: " + dirArgs.DirectoryPath + "was closed";
             m_logging.Log(closingMessage, Logging.Modal.MessageTypeEnum.INFO);
-
         }
     }
        

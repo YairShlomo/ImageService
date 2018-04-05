@@ -111,6 +111,8 @@ namespace ImageService
         protected override void OnStop()
         {
             eventLog1.WriteEntry("In onStop.");
+           // DirectoryCloseEventArgs m_close_event =new DirectoryCloseEventArgs()
+          //  m_imageServer.OnClose(;
         }
         protected override void OnContinue()
         {
