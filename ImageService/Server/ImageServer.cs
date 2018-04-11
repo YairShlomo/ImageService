@@ -62,6 +62,7 @@ namespace ImageService.Server
             CommandRecieved -= dirHandler.OnCommandRecieved;
             string closingMessage = "The directory: " + dirArgs.DirectoryPath + "was closed";
             m_logging.Log(closingMessage, Logging.Modal.MessageTypeEnum.INFO);
+<<<<<<< HEAD
         }
         public void closeAll()
         {
@@ -69,6 +70,8 @@ namespace ImageService.Server
             {
                 item.Dispose();
             }
+=======
+>>>>>>> edda2540f28b883c0488e1fef78ebb6ee5f6a94d
         }
     }
        

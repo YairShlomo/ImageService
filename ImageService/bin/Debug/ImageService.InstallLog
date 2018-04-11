@@ -362,6 +362,7 @@ Affected parameters are:
    logtoconsole = 
    logfile = C:\Users\yair144\Documents\Visual Studio 2017\Projects\ImageService\ImageService\ImageService\bin\Debug\ImageService.InstallLog
    assemblypath = C:\Users\yair144\Documents\Visual Studio 2017\Projects\ImageService\ImageService\ImageService\bin\Debug\ImageService.exe
+<<<<<<< HEAD
 Uninstalling assembly 'C:\Users\gal\Documents\Visual Studio 2015\Projects\ImageService\ImageService\bin\Debug\ImageService.exe'.
 Affected parameters are:
    logtoconsole = 
@@ -482,3 +483,5 @@ Affected parameters are:
    logfile = C:\Users\gal\Documents\Visual Studio 2015\Projects\ImageService\ImageService\bin\Debug\ImageService.InstallLog
    assemblypath = C:\Users\gal\Documents\Visual Studio 2015\Projects\ImageService\ImageService\bin\Debug\ImageService.exe
 Restoring event log to previous state for source ImageService.
+=======
+>>>>>>> edda2540f28b883c0488e1fef78ebb6ee5f6a94d
