@@ -48,17 +48,18 @@ namespace ImageService.Modal
 
         public string AddFile(string path, out bool result)
         {
-
+            FileAttributes attr = File.GetAttributes(path);
+            
             result = true;
             try
             {
                 string strResult;
-                if (File.Exists(path))
+                if (!((attr & FileAttributes.Directory) == FileAttributes.Directory))
                 {
 
                     Debug_program debug = new Debug_program();
-                    // debug.write("addfile");
-                   // debug.write("addfile");
+                  //  debug.write("addfile");
+                   
 
                     //create output directory if doesnt exist
                     Directory.CreateDirectory(OutputFolder);
@@ -76,34 +77,46 @@ namespace ImageService.Modal
                     string targetPath = targetPathDir + "\\" + fullNamePath;
                     string targetPathThumbnail= thumbnailPath + "\\" + yearOfCreation + "\\" + monthOfCreation;
                     DirectoryInfo dirThumbnail = Directory.CreateDirectory(thumbnailPath + "\\" + yearOfCreation + "\\" + monthOfCreation);
-                    
+                    string pathExtension = Path.GetExtension(targetPath);
+                    targetPath = isFileExist(targetPath, pathExtension);
                     File.Move(path, targetPath);
-                   // debug.write("path:");
-                 //   debug.write(path);
-                   // debug.write(targetPathDir);
-                 //   debug.write("1");
+                   
+                    //debug.write(path);
+                   // debug.write(targetPath);
+                   //debug.write(targetPathDir);
+                   // debug.write("1");
                     //Save the thumbnail image.
-                    Image thumbImage = Image.FromFile(targetPath);                   
-                    thumbImage = thumbImage.GetThumbnailImage(m_thumbnailSize, m_thumbnailSize, () => false, IntPtr.Zero);                    
-                    thumbImage.Save(targetPathThumbnail.ToString() + "\\" + fullNamePath);
-                    debug.write("debug");
-                    result = true;
-                    return targetPath.ToString() + "\\" + fullNamePath;
-                }
-                else
-                {
-                    result = false;
-                    strResult = "File didn't added-wrong Image path ";
+                    targetPathThumbnail = isFileExist(targetPathThumbnail, pathExtension);
+                    Image thumbImage = Image.FromFile(targetPath);
+                    //debug.write("2");
+                   // File.Create(targetPath).Close();
+                    thumbImage = thumbImage.GetThumbnailImage(m_thumbnailSize, m_thumbnailSize, () => false, IntPtr.Zero);
+                    thumbImage.Save(isFileExist(targetPathThumbnail.ToString() + "\\" + fullNamePath, pathExtension));
 
-                }
-
-                if (result)
-                {
+                   // thumbImage.Dispose();
+                   // File.Create(targetPath).Close();
+                   // debug.write("saved thumbImage ");
+                   
+                    //File.Create(targetPath).Flush();
+                    // File.Create(targetPath).Dispose();
+                    // File.Create(targetPath).Close();
+                    // File.Create(path).Flush();
+                    // File.Create(path).Dispose();
+                    // File.Create(path).Close();
+                    // FileStream.Flush(t);
+                    // System.IO.FileStream.Dispose(Boolean disposing)
+                    //System.IO.FileStream.Close()
+                    // FileStream.;
                     strResult = "File added Successfully ";
                 }
                 else
                 {
+                   
+                    strResult = "File didn't added-wrong Image path ";
+
                 }
+
+               
                 return strResult;
             }
             catch (Exception e)
@@ -112,6 +125,26 @@ namespace ImageService.Modal
                 return e.ToString();
             }
 
+        }
+
+        public string isFileExist(string targetPath, string pathExtension)
+        {
+            Debug_program debug = new Debug_program();
+            int counter = 1;
+            while (File.Exists(targetPath))
+            {
+              //  debug.write("inside "+targetPath);
+                string noExtesnsion = targetPath.Replace(pathExtension, "");
+                int numericValue;
+                if (Int32.TryParse(noExtesnsion.Substring(noExtesnsion.Length - 1), out numericValue))
+                {
+                    noExtesnsion = noExtesnsion.Substring(0, noExtesnsion.Length - 1);
+                }
+                targetPath = noExtesnsion + counter + pathExtension;
+                counter++;
+            }
+           // debug.write("after "+targetPath);
+            return targetPath;
         }
     }
 }

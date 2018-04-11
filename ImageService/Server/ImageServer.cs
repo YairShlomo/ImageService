@@ -18,6 +18,8 @@ namespace ImageService.Server
         private IImageController m_controller;
         private ILoggingService m_logging;
         private Debug_program debug;
+        private LinkedList<Task> tasks;
+        object lockObject = new object();
         #endregion
 
         #region Properties
@@ -27,7 +29,7 @@ namespace ImageService.Server
         public ImageServer(ILoggingService loggingService, IImageController imageController)
         {
             debug = new Debug_program();
-
+            tasks = new LinkedList<Task>();
             m_logging = loggingService;
             m_controller = imageController;
             
@@ -36,16 +38,23 @@ namespace ImageService.Server
             {
                 //**need to check that dirPath is valid??***
                 //**************************************
-                CreateHandler(path);
+                tasks.AddFirst(Task.Factory.StartNew(() => CreateHandler(path)));
+
+                //Task.Factory.StartNew(() => CreateHandler(path));
+                //CreateHandler(path);
             }
+            
         }
 
         public void CreateHandler(string dirPath)
         {
             debug.write("dirPath\n");
             IDirectoryHandler dirHandler = new DirectoyHandler(dirPath, m_logging, m_controller);
-            CommandRecieved += dirHandler.OnCommandRecieved;
+            lock (lockObject)
+            {
+                CommandRecieved += dirHandler.OnCommandRecieved;
             dirHandler.DirectoryClose += OnClose;
+                 }
         }
         public void OnClose(object o, DirectoryCloseEventArgs dirArgs)
         {
@@ -53,7 +62,13 @@ namespace ImageService.Server
             CommandRecieved -= dirHandler.OnCommandRecieved;
             string closingMessage = "The directory: " + dirArgs.DirectoryPath + "was closed";
             m_logging.Log(closingMessage, Logging.Modal.MessageTypeEnum.INFO);
-
+        }
+        public void closeAll()
+        {
+            foreach (var item in tasks)
+            {
+                item.Dispose();
+            }
         }
     }
        

@@ -31,6 +31,7 @@ namespace ImageService.Controller.Handlers
             m_controller = imageController;
             StartHandleDirectory(dirPath);
         }
+
         public event EventHandler<DirectoryCloseEventArgs> DirectoryClose;             // The Event That Notifies that the Directory is being closed
 
         
@@ -47,7 +48,7 @@ namespace ImageService.Controller.Handlers
             debug.write("on command recived");
             bool result;
             //m_logging.Log();
-            m_controller.ExecuteCommand(e.CommandID, e.Args, out result);
+            m_logging.Log(m_controller.ExecuteCommand(e.CommandID, e.Args, out result), MessageTypeEnum.INFO);
         }
 
         public void InitializeWatcher(string dirPath)
@@ -65,7 +66,6 @@ namespace ImageService.Controller.Handlers
         private void OnChanged(object o, FileSystemEventArgs comArgs)
         {
             debug.write("OnChanged");
-
             string argsFullPath = comArgs.FullPath;
             string[] args = { comArgs.FullPath };
             string fileExtension = Path.GetExtension(argsFullPath);

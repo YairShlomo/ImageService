@@ -75,7 +75,7 @@ namespace ImageService
 
         protected override void OnStart(string[] args)
         {
-            debug.write("onstart ImageService");
+            //debug.write("onstart ImageService");
 
             modal = new ImageServiceModal();
 
@@ -110,6 +110,7 @@ namespace ImageService
 
         protected override void OnStop()
         {
+            
             eventLog1.WriteEntry("In onStop.");
         }
         protected override void OnContinue()
