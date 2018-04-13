@@ -19,10 +19,12 @@ namespace ImageService.Controller
         {
             m_modal = modal;                    // Storing the Modal Of The System
             CommandEnum y = CommandEnum.NewFileCommand;
+            CommandEnum c = CommandEnum.CloseCommand;
             commands = new Dictionary<int, ICommand>()
             {
                 // For Now will contain NEW_FILE_COMMAND
-                {(int)y, new NewFileCommand(m_modal) }
+                {(int)y, new NewFileCommand(m_modal) },
+                {(int)c, new CloseCommand(m_modal)}
 
         };
         }

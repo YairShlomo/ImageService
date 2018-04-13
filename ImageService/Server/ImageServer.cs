@@ -29,7 +29,7 @@ namespace ImageService.Server
         public ImageServer(ILoggingService loggingService, IImageController imageController)
         {
             debug = new Debug_program();
-            tasks = new LinkedList<Task>();
+           // tasks = new LinkedList<Task>();
             m_logging = loggingService;
             m_controller = imageController;
             
@@ -38,40 +38,45 @@ namespace ImageService.Server
             {
                 //**need to check that dirPath is valid??***
                 //**************************************
-                tasks.AddFirst(Task.Factory.StartNew(() => CreateHandler(path)));
-
+                // tasks.AddFirst(Task.Factory.StartNew(() => CreateHandler(path)));
+                CreateHandler(path);
                 //Task.Factory.StartNew(() => CreateHandler(path));
                 //CreateHandler(path);
             }
-            
         }
 
         public void CreateHandler(string dirPath)
         {
             debug.write("dirPath\n");
             IDirectoryHandler dirHandler = new DirectoyHandler(dirPath, m_logging, m_controller);
-            lock (lockObject)
-            {
-                CommandRecieved += dirHandler.OnCommandRecieved;
+            CommandRecieved += dirHandler.OnCommandRecieved;
             dirHandler.DirectoryClose += OnClose;
-                 }
         }
         public void OnClose(object o, DirectoryCloseEventArgs dirArgs)
         {
             IDirectoryHandler dirHandler = (IDirectoryHandler)o;
             CommandRecieved -= dirHandler.OnCommandRecieved;
+            // CommandRecieved
+            dirHandler.StopWatcher();
+
+
             string closingMessage = "The directory: " + dirArgs.DirectoryPath + "was closed";
             m_logging.Log(closingMessage, Logging.Modal.MessageTypeEnum.INFO);
-<<<<<<< HEAD
+
         }
-        public void closeAll()
+
+        public void CloseAll()
         {
+            string[] message = { "directory has been closed" };
+            CommandRecievedEventArgs cre = new CommandRecievedEventArgs(1, message, null);
+            CommandRecieved.Invoke(this, cre);
+            /*
+            //CommandRecieved.Invoke
             foreach (var item in tasks)
             {
                 item.Dispose();
             }
-=======
->>>>>>> edda2540f28b883c0488e1fef78ebb6ee5f6a94d
+            */
         }
     }
        

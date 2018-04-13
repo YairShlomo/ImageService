@@ -44,27 +44,21 @@ namespace ImageService.Modal
             get { return m_thumbnailSize; }
             set { m_thumbnailSize = value; }
         }
-        
+
 
         public string AddFile(string path, out bool result)
         {
             FileAttributes attr = File.GetAttributes(path);
-            
+
             result = true;
             try
             {
                 string strResult;
                 if (!((attr & FileAttributes.Directory) == FileAttributes.Directory))
                 {
-
                     Debug_program debug = new Debug_program();
-<<<<<<< HEAD
-                  //  debug.write("addfile");
-=======
+                    //  debug.write("addfile");
                     debug.write("addfile");
->>>>>>> edda2540f28b883c0488e1fef78ebb6ee5f6a94d
-                   
-
                     //create output directory if doesnt exist
                     Directory.CreateDirectory(OutputFolder);
                     string fullNamePath = Path.GetFileName(path);
@@ -79,63 +73,38 @@ namespace ImageService.Modal
                     string targetPathDir = OutputFolder + "\\" + yearOfCreation + "\\" + monthOfCreation;
                     DirectoryInfo dir = Directory.CreateDirectory(targetPathDir);
                     string targetPath = targetPathDir + "\\" + fullNamePath;
-                    string targetPathThumbnail= thumbnailPath + "\\" + yearOfCreation + "\\" + monthOfCreation;
+                    string targetPathThumbnail = thumbnailPath + "\\" + yearOfCreation + "\\" + monthOfCreation;
                     DirectoryInfo dirThumbnail = Directory.CreateDirectory(thumbnailPath + "\\" + yearOfCreation + "\\" + monthOfCreation);
                     string pathExtension = Path.GetExtension(targetPath);
-                    targetPath = isFileExist(targetPath, pathExtension);
+                    targetPath = IsFileExist(targetPath, pathExtension);
                     File.Move(path, targetPath);
-<<<<<<< HEAD
-                   
-                    //debug.write(path);
-                   // debug.write(targetPath);
-                   //debug.write(targetPathDir);
-                   // debug.write("1");
-                    //Save the thumbnail image.
-                    targetPathThumbnail = isFileExist(targetPathThumbnail, pathExtension);
-                    Image thumbImage = Image.FromFile(targetPath);
-                    //debug.write("2");
-                   // File.Create(targetPath).Close();
-                    thumbImage = thumbImage.GetThumbnailImage(m_thumbnailSize, m_thumbnailSize, () => false, IntPtr.Zero);
-                    thumbImage.Save(isFileExist(targetPathThumbnail.ToString() + "\\" + fullNamePath, pathExtension));
 
-                   // thumbImage.Dispose();
-                   // File.Create(targetPath).Close();
-                   // debug.write("saved thumbImage ");
-                   
-                    //File.Create(targetPath).Flush();
-                    // File.Create(targetPath).Dispose();
-                    // File.Create(targetPath).Close();
-                    // File.Create(path).Flush();
-                    // File.Create(path).Dispose();
-                    // File.Create(path).Close();
-                    // FileStream.Flush(t);
-                    // System.IO.FileStream.Dispose(Boolean disposing)
-                    //System.IO.FileStream.Close()
-                    // FileStream.;
-                    strResult = "File added Successfully ";
-=======
-                   debug.write(path);
-                    debug.write(targetPath);
-                   debug.write(targetPathDir);
-                    debug.write("1");
+                    //debug.write(path);
+                    // debug.write(targetPath);
+                    //debug.write(targetPathDir);
+                    // debug.write("1");
                     //Save the thumbnail image.
+                    targetPathThumbnail = IsFileExist(targetPathThumbnail, pathExtension);
+                    debug.write("not thumbImage");
+                   
                     Image thumbImage = Image.FromFile(targetPath);
+                    debug.write("thumbImage1");
                     debug.write("2");
-                    thumbImage = thumbImage.GetThumbnailImage(m_thumbnailSize, m_thumbnailSize, () => false, IntPtr.Zero);                    
+                    thumbImage = thumbImage.GetThumbnailImage(m_thumbnailSize, m_thumbnailSize, () => false, IntPtr.Zero);
                     thumbImage.Save(targetPathThumbnail.ToString() + "\\" + fullNamePath);
+                    debug.write(" thumbImage");
                     debug.write("saved thumbImage ");
                     result = true;
                     return targetPath.ToString() + "\\" + fullNamePath;
->>>>>>> edda2540f28b883c0488e1fef78ebb6ee5f6a94d
                 }
                 else
                 {
-                   
+
                     strResult = "File didn't added-wrong Image path ";
 
                 }
 
-               
+
                 return strResult;
             }
             catch (Exception e)
@@ -146,19 +115,14 @@ namespace ImageService.Modal
 
         }
 
-        public string isFileExist(string targetPath, string pathExtension)
+        public string IsFileExist(string targetPath, string pathExtension)
         {
-<<<<<<< HEAD
+
             Debug_program debug = new Debug_program();
             int counter = 1;
             while (File.Exists(targetPath))
             {
-              //  debug.write("inside "+targetPath);
-=======
-            int counter = 1;
-            while (File.Exists(targetPath))
-            {
->>>>>>> edda2540f28b883c0488e1fef78ebb6ee5f6a94d
+                //  debug.write("inside "+targetPath);
                 string noExtesnsion = targetPath.Replace(pathExtension, "");
                 int numericValue;
                 if (Int32.TryParse(noExtesnsion.Substring(noExtesnsion.Length - 1), out numericValue))
@@ -168,11 +132,12 @@ namespace ImageService.Modal
                 targetPath = noExtesnsion + counter + pathExtension;
                 counter++;
             }
-<<<<<<< HEAD
-           // debug.write("after "+targetPath);
-=======
->>>>>>> edda2540f28b883c0488e1fef78ebb6ee5f6a94d
+
+            // debug.write("after "+targetPath);
+
             return targetPath;
         }
     }
 }
+    
+

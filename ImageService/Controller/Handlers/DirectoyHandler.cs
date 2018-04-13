@@ -21,12 +21,13 @@ namespace ImageService.Controller.Handlers
         private IImageController m_controller;              // The Image Processing Controller
         private ILoggingService m_logging;
         private FileSystemWatcher m_dirWatcher;             // The Watcher of the Dir
-        //private string m_path;                              // The Path of directory
+        private string m_path;                              // The Path of directory
         private string[] extensionsToListen = { "*.jpg", "*.gif", "*.png", "*.bmp" };   // List for valid extensions.
         #endregion
         public DirectoyHandler(string dirPath, ILoggingService loggingService, IImageController imageController)
         {
             debug = new Debug_program();
+            m_path = dirPath;
             m_logging = loggingService;
             m_controller = imageController;
             StartHandleDirectory(dirPath);
@@ -34,7 +35,6 @@ namespace ImageService.Controller.Handlers
 
         public event EventHandler<DirectoryCloseEventArgs> DirectoryClose;             // The Event That Notifies that the Directory is being closed
 
-        
         public void StartHandleDirectory(string dirPath)
         {
             debug.write("StartHandleDirectory\n");
@@ -47,10 +47,19 @@ namespace ImageService.Controller.Handlers
         {
             debug.write("on command recived");
             bool result;
-            //m_logging.Log();
-            m_logging.Log(m_controller.ExecuteCommand(e.CommandID, e.Args, out result), MessageTypeEnum.INFO);
+            string message= m_controller.ExecuteCommand(e.CommandID, e.Args, out result);
+            m_logging.Log(message, MessageTypeEnum.INFO);
+            if (string.Compare(message,"closeDriectory")==0)
+            {
+                DirectoryCloseEventArgs close = new DirectoryCloseEventArgs(m_path, e.Args[1]);
+                DirectoryClose.Invoke(this, close);
+            }
         }
-
+        public void StopWatcher()
+        {
+            debug.write("stopeed watcher");
+            m_dirWatcher.EnableRaisingEvents = false;
+        }
         public void InitializeWatcher(string dirPath)
         {
             m_dirWatcher = new FileSystemWatcher();
@@ -72,10 +81,10 @@ namespace ImageService.Controller.Handlers
             debug.write(fileExtension);
             if (extensionsToListen.Contains("*" + fileExtension))
             {
-               
                 CommandRecievedEventArgs commandArgs = new CommandRecievedEventArgs((int)CommandEnum.NewFileCommand, args, fileExtension);
                 OnCommandRecieved(this, commandArgs);
             }
         }
+       
     }
 }

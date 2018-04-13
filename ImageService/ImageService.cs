@@ -112,6 +112,7 @@ namespace ImageService
         {
             
             eventLog1.WriteEntry("In onStop.");
+            m_imageServer.CloseAll();
            // DirectoryCloseEventArgs m_close_event =new DirectoryCloseEventArgs()
           //  m_imageServer.OnClose(;
         }
