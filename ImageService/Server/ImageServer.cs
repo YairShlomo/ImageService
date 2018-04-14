@@ -26,6 +26,11 @@ namespace ImageService.Server
         public event EventHandler<CommandRecievedEventArgs> CommandRecieved;          // The event that notifies about a new Command being recieved
         #endregion
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ImageServer"/> class.
+        /// </summary>
+        /// <param name="loggingService">The logging service.</param>
+        /// <param name="imageController">The image controller.</param>
         public ImageServer(ILoggingService loggingService, IImageController imageController)
         {
             debug = new Debug_program();
@@ -45,6 +50,10 @@ namespace ImageService.Server
             }
         }
 
+        /// <summary>
+        /// Creates the handler.
+        /// </summary>
+        /// <param name="dirPath">The dir path.</param>
         public void CreateHandler(string dirPath)
         {
             debug.write("dirPath\n");
@@ -52,6 +61,11 @@ namespace ImageService.Server
             CommandRecieved += dirHandler.OnCommandRecieved;
             dirHandler.DirectoryClose += OnClose;
         }
+        /// <summary>
+        /// Raises the Close event.
+        /// </summary>
+        /// <param name="o">The o.</param>
+        /// <param name="dirArgs">The <see cref="DirectoryCloseEventArgs"/> instance containing the event data.</param>
         public void OnClose(object o, DirectoryCloseEventArgs dirArgs)
         {
             IDirectoryHandler dirHandler = (IDirectoryHandler)o;
@@ -65,18 +79,14 @@ namespace ImageService.Server
 
         }
 
+        /// <summary>
+        /// Closes all the handlers.
+        /// </summary>
         public void CloseAll()
         {
             string[] message = { "directory has been closed" };
             CommandRecievedEventArgs cre = new CommandRecievedEventArgs(1, message, null);
             CommandRecieved.Invoke(this, cre);
-            /*
-            //CommandRecieved.Invoke
-            foreach (var item in tasks)
-            {
-                item.Dispose();
-            }
-            */
         }
     }
        

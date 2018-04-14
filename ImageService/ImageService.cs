@@ -49,8 +49,8 @@ namespace ImageService
 
         public ImageService(string[] args)
         {
-            debug = new Debug_program();
-            debug.write("constructor ImageService");
+            //debug = new Debug_program();
+            //debug.write("constructor ImageService");
             
 
             InitializeComponent();
@@ -113,8 +113,6 @@ namespace ImageService
             
             eventLog1.WriteEntry("In onStop.");
             m_imageServer.CloseAll();
-           // DirectoryCloseEventArgs m_close_event =new DirectoryCloseEventArgs()
-          //  m_imageServer.OnClose(;
         }
         protected override void OnContinue()
         {
@@ -123,5 +121,10 @@ namespace ImageService
 
         [DllImport("advapi32.dll", SetLastError = true)]
         private static extern bool SetServiceStatus(IntPtr handle, ref ServiceStatus serviceStatus);
+
+        private void eventLog1_EntryWritten(object sender, EntryWrittenEventArgs e)
+        {
+
+        }
     }
 }

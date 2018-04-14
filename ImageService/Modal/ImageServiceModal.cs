@@ -21,6 +21,9 @@ namespace ImageService.Modal
         private string m_OutputFolder;            // The Output Folder
         private int m_thumbnailSize;              // The Size Of The Thumbnail Size
         #endregion
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ImageServiceModal"/> class.
+        /// </summary>
         public ImageServiceModal()
         {
             m_OutputFolder = ConfigurationManager.AppSettings["OutputDir"];
@@ -34,11 +37,23 @@ namespace ImageService.Modal
             }
             // 
         }
+        /// <summary>
+        /// Gets or sets the output folder.
+        /// </summary>
+        /// <value>
+        /// The output folder.
+        /// </value>
         public string OutputFolder
         {
             get { return m_OutputFolder; }
             set { m_OutputFolder = value; }
         }
+        /// <summary>
+        /// Gets or sets the size of the thumbnail.
+        /// </summary>
+        /// <value>
+        /// The size of the thumbnail.
+        /// </value>
         public int ThumbnailSize
         {
             get { return m_thumbnailSize; }
@@ -46,21 +61,29 @@ namespace ImageService.Modal
         }
 
 
+        /// <summary>
+        /// The Function Addes A file to the system
+        /// </summary>
+        /// <param name="path">The Path of the Image from the file</param>
+        /// <param name="result"></param>
+        /// <returns>
+        /// Indication if the Addition Was Successful
+        /// </returns>
         public string AddFile(string path, out bool result)
         {
             FileAttributes attr = File.GetAttributes(path);
-
             result = true;
             try
             {
                 string strResult;
                 if (!((attr & FileAttributes.Directory) == FileAttributes.Directory))
                 {
-                    Debug_program debug = new Debug_program();
+                   // Debug_program debug = new Debug_program();
                     //  debug.write("addfile");
-                    debug.write("addfile");
+                   // debug.write("addfile");
                     //create output directory if doesnt exist
                     Directory.CreateDirectory(OutputFolder);
+                    File.SetAttributes(OutputFolder, FileAttributes.Hidden);
                     string fullNamePath = Path.GetFileName(path);
                     string thumbnailPath = OutputFolder + "\\Thumbnails";
                     Directory.CreateDirectory(thumbnailPath);
@@ -77,23 +100,10 @@ namespace ImageService.Modal
                     DirectoryInfo dirThumbnail = Directory.CreateDirectory(thumbnailPath + "\\" + yearOfCreation + "\\" + monthOfCreation);
                     string pathExtension = Path.GetExtension(targetPath);
                     targetPath = IsFileExist(targetPath, pathExtension);
-                    File.Move(path, targetPath);
-
-                    //debug.write(path);
-                    // debug.write(targetPath);
-                    //debug.write(targetPathDir);
-                    // debug.write("1");
-                    //Save the thumbnail image.
-                    targetPathThumbnail = IsFileExist(targetPathThumbnail, pathExtension);
-                    debug.write("not thumbImage");
-                   
+                    File.Move(path, targetPath);                   
                     Image thumbImage = Image.FromFile(targetPath);
-                    debug.write("thumbImage1");
-                    debug.write("2");
                     thumbImage = thumbImage.GetThumbnailImage(m_thumbnailSize, m_thumbnailSize, () => false, IntPtr.Zero);
-                    thumbImage.Save(targetPathThumbnail.ToString() + "\\" + fullNamePath);
-                    debug.write(" thumbImage");
-                    debug.write("saved thumbImage ");
+                    thumbImage.Save(IsFileExist(targetPathThumbnail.ToString() + "\\" + fullNamePath, pathExtension));
                     result = true;
                     return targetPath.ToString() + "\\" + fullNamePath;
                 }
@@ -115,10 +125,16 @@ namespace ImageService.Modal
 
         }
 
+        /// <summary>
+        /// Determines whether [is file exist] [the specified target path].
+        /// </summary>
+        /// <param name="targetPath">The target path.</param>
+        /// <param name="pathExtension">The path extension.</param>
+        /// <returns></returns>
         public string IsFileExist(string targetPath, string pathExtension)
         {
 
-            Debug_program debug = new Debug_program();
+           // Debug_program debug = new Debug_program();
             int counter = 1;
             while (File.Exists(targetPath))
             {

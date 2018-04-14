@@ -12,6 +12,12 @@ namespace ImageService.Modal
         public string[] Args { get; set; }
         public string RequestDirPath { get; set; }  // The Request Directory
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CommandRecievedEventArgs"/> class.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        /// <param name="args">The arguments.</param>
+        /// <param name="path">The path.</param>
         public CommandRecievedEventArgs(int id, string[] args, string path)
         {
             CommandID = id;
