@@ -20,6 +20,8 @@ namespace ImageService.Modal
         #region Members
         private string m_OutputFolder;            // The Output Folder
         private int m_thumbnailSize;              // The Size Of The Thumbnail Size
+        private static Regex r = new Regex(":"); //we init this once so that if the function is repeatedly called
+                                                 //it isn't stressing the garbage man
         #endregion
         /// <summary>
         /// Initializes a new instance of the <see cref="ImageServiceModal"/> class.
@@ -87,7 +89,22 @@ namespace ImageService.Modal
                     string fullNamePath = Path.GetFileName(path);
                     string thumbnailPath = OutputFolder + "\\Thumbnails";
                     Directory.CreateDirectory(thumbnailPath);
-                    DateTime creation = File.GetCreationTime(path);
+                    // DateTime creation = File.GetCreationTime(path);
+                    DateTime creation;
+                    Debug_program debug = new Debug_program(); ;
+
+                    try
+                    {
+                        creation = GetDateTakenFromImage(path);
+                        debug.write("picture taken: ");
+
+                    }
+                    catch (Exception e)
+                    {
+                        creation = File.GetCreationTime(path);
+                        debug.write("exception" + e.Message);
+
+                    }
                     string yearOfCreation = creation.Year.ToString();
                     string monthOfCreation = creation.Month.ToString();
                     Directory.CreateDirectory(OutputFolder + "\\" + yearOfCreation);
@@ -152,6 +169,17 @@ namespace ImageService.Modal
             // debug.write("after "+targetPath);
 
             return targetPath;
+        }
+        //retrieves the datetime WITHOUT loading the whole image
+        public static DateTime GetDateTakenFromImage(string path)
+        {
+            using (FileStream fs = new FileStream(path, FileMode.Open, FileAccess.Read))
+            using (Image myImage = Image.FromStream(fs, false, false))
+            {
+                System.Drawing.Imaging.PropertyItem propItem = myImage.GetPropertyItem(36867);
+                string dateTaken = r.Replace(Encoding.UTF8.GetString(propItem.Value), "-", 2);
+                return DateTime.Parse(dateTaken);
+            }
         }
     }
 }

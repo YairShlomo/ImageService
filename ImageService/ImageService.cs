@@ -45,7 +45,7 @@ namespace ImageService
         private IImageServiceModal modal;
         private IImageController controller;
         private ILoggingService logging;
-        private Debug_program debug;
+      //  private Debug_program debug;
 
         public ImageService(string[] args)
         {

@@ -17,7 +17,7 @@ namespace ImageService.Controller.Handlers
     public class DirectoyHandler : IDirectoryHandler
     {
         #region Members
-        private Debug_program debug;
+       // private Debug_program debug;
         private IImageController m_controller;              // The Image Processing Controller
         private ILoggingService m_logging;                  // the logger
         private FileSystemWatcher m_dirWatcher;             // The Watcher of the Dir
@@ -32,7 +32,7 @@ namespace ImageService.Controller.Handlers
         /// <param name="imageController">The image controller.</param>
         public DirectoyHandler(string dirPath, ILoggingService loggingService, IImageController imageController)
         {
-            debug = new Debug_program();
+            //debug = new Debug_program();
             m_path = dirPath;
             m_logging = loggingService;
             m_controller = imageController;
@@ -78,7 +78,7 @@ namespace ImageService.Controller.Handlers
         /// </summary>
         public void StopWatcher()
         {
-            debug.write("stopeed watcher");
+            //debug.write("stopeed watcher");
             m_dirWatcher.EnableRaisingEvents = false;
         }
         /// <summary>

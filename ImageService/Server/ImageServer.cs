@@ -17,7 +17,7 @@ namespace ImageService.Server
         #region Members
         private IImageController m_controller;
         private ILoggingService m_logging;
-        private Debug_program debug;
+       // private Debug_program debug;
         private LinkedList<Task> tasks;
         object lockObject = new object();
         #endregion
@@ -33,7 +33,7 @@ namespace ImageService.Server
         /// <param name="imageController">The image controller.</param>
         public ImageServer(ILoggingService loggingService, IImageController imageController)
         {
-            debug = new Debug_program();
+          //  debug = new Debug_program();
            // tasks = new LinkedList<Task>();
             m_logging = loggingService;
             m_controller = imageController;
@@ -56,7 +56,7 @@ namespace ImageService.Server
         /// <param name="dirPath">The dir path.</param>
         public void CreateHandler(string dirPath)
         {
-            debug.write("dirPath\n");
+           // debug.write("dirPath\n");
             IDirectoryHandler dirHandler = new DirectoyHandler(dirPath, m_logging, m_controller);
             CommandRecieved += dirHandler.OnCommandRecieved;
             dirHandler.DirectoryClose += OnClose;
