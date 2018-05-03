@@ -14,7 +14,7 @@ namespace ImageService
         /// </summary>
         static void Main(string[] args)
         {
-
+            
             ServiceBase[] ServicesToRun;
             ServicesToRun = new ServiceBase[]
             {

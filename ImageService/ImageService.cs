@@ -26,7 +26,6 @@ namespace ImageService
         SERVICE_PAUSE_PENDING = 0x00000006,
         SERVICE_PAUSED = 0x00000007,
     }
-
     [StructLayout(LayoutKind.Sequential)]
     public struct ServiceStatus
     {
@@ -110,7 +109,6 @@ namespace ImageService
 
         protected override void OnStop()
         {
-            
             eventLog1.WriteEntry("In onStop.");
             m_imageServer.CloseAll();
         }

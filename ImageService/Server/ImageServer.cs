@@ -41,12 +41,10 @@ namespace ImageService.Server
             string[] dirPaths = ConfigurationManager.AppSettings["Handler"].Split(';');
             foreach (string path in dirPaths)
             {
-                //**need to check that dirPath is valid??***
-                //**************************************
                 // tasks.AddFirst(Task.Factory.StartNew(() => CreateHandler(path)));
                 CreateHandler(path);
                 //Task.Factory.StartNew(() => CreateHandler(path));
-                //CreateHandler(path);
+            
             }
         }
 
@@ -78,7 +76,6 @@ namespace ImageService.Server
             m_logging.Log(closingMessage, Logging.Modal.MessageTypeEnum.INFO);
 
         }
-
         /// <summary>
         /// Closes all the handlers.
         /// </summary>

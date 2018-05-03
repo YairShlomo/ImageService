@@ -9,17 +9,10 @@ namespace ImageService
     class Debug_program
     {
         private string path;
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Debug_program"/> class.
-        /// </summary>
         public Debug_program()
         {
-            path = "C:/Users/gal/Pictures/debug/debug.txt";
+            path = "C:/Users/yair144/Pictures/debug/debug.txt";
         }
-        /// <summary>
-        /// Writes the specified message.
-        /// </summary>
-        /// <param name="message">The message.</param>
         public void write(string message)
         {
             using (System.IO.StreamWriter file =
