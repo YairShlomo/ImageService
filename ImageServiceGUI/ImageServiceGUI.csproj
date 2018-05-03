@@ -77,6 +77,8 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\ILogModel.cs" />
+    <Compile Include="Model\ISettingModel.cs" />
     <Compile Include="Model\LogModel.cs" />
     <Compile Include="Model\SettingModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -108,6 +110,12 @@
   <ItemGroup>
     <Folder Include="ViewModel\" />
     <Folder Include="Views\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ImageService\ImageService.csproj">
+      <Project>{93cb7844-a205-4403-87bb-d5f22fd50d34}</Project>
+      <Name>ImageService</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
