@@ -6,7 +6,7 @@ using System.IO;
 using Newtonsoft.Json;
 using ImageService.Modal;
 using ImageService.Controller;
-namespace ImageServiceGUI.Communication
+namespace ImageService.Communication
 {
     class ClientHandler : IClientHandler
     {

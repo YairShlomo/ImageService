@@ -5,11 +5,20 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-
+using ImageServiceGUI.Communication;
+using ImageService.Logging.Modal;
+using ImageService.Modal;
+using ImageService.Infrastructure.Enums;
 namespace ImageServiceGUI.Model
 {
     class SettingModel : ISettingModel
     {
+        public SettingModel()
+        {
+            client = new ISClient();
+            CommandRecievedEventArgs commandArgs = new CommandRecievedEventArgs((int)CommandEnum.GetConfigCommand, null, null);
+            client.Send(commandArgs);
+        }
         #region Notify Changed
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged(string name)
@@ -17,6 +26,9 @@ namespace ImageServiceGUI.Model
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
         #endregion
+        private IISClient client;
+          
+
         private string m_outputDirectory;
         public string OutputDirectory
         {

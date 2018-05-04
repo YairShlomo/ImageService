@@ -69,6 +69,9 @@
     <Compile Include="Commands\CloseCommand.cs" />
     <Compile Include="Commands\LogCommand.cs" />
     <Compile Include="Commands\GetConfigCommand.cs" />
+    <Compile Include="Communication\ClientHandler.cs" />
+    <Compile Include="Communication\IClientHandler.cs" />
+    <Compile Include="Communication\ISServer.cs" />
     <Compile Include="Debug_program.cs" />
     <Compile Include="Commands\ICommand.cs" />
     <Compile Include="Commands\NewFileCommand.cs" />
@@ -76,7 +79,6 @@
     <Compile Include="Controller\Handlers\IDirectoryHandler.cs" />
     <Compile Include="Controller\IImageController.cs" />
     <Compile Include="Controller\ImageController.cs" />
-    <Compile Include="IISClient.cs" />
     <Compile Include="ImageService.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -84,7 +86,6 @@
       <DependentUpon>ImageService.cs</DependentUpon>
     </Compile>
     <Compile Include="Infrastructure\Enums\CommandEnum.cs" />
-    <Compile Include="ISClient.cs" />
     <Compile Include="Logging\ILoggingService.cs" />
     <Compile Include="Logging\LoggingService.cs" />
     <Compile Include="Logging\Modal\MessageRecievedEventArgs.cs" />
