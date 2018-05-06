@@ -5,8 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ImageServiceGUI"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        xmlns:Controls="clr-namespace:ImageServiceGUI.View"
+        Title="MainWindow" Height="350" Width="525">
     <Grid>
-        
+        <TabControl>
+            <TabItem Header="Setting">
+                <Controls:ViewSetting />
+            </TabItem>
+            <TabItem Header="Logs" >
+                <Controls:ViewLog />
+            </TabItem>
+        </TabControl>
     </Grid>
 </Window>

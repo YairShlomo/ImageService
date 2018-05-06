@@ -14,9 +14,9 @@ namespace ImageServiceGUI.Model
     {
         public LogModel()
         {
-            client = new ISClient();
+            //client = new ISClient();
             CommandRecievedEventArgs commandArgs = new CommandRecievedEventArgs((int)CommandEnum.LogCommand, null, null);
-            client.Send(commandArgs);
+           // client.Send(commandArgs);
         }
         #region Notify Changed
         public event PropertyChangedEventHandler PropertyChanged;

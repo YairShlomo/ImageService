@@ -15,9 +15,9 @@ namespace ImageServiceGUI.Model
     {
         public SettingModel()
         {
-            client = new ISClient();
+            //client = new ISClient();
             CommandRecievedEventArgs commandArgs = new CommandRecievedEventArgs((int)CommandEnum.GetConfigCommand, null, null);
-            client.Send(commandArgs);
+            //client.Send(commandArgs);
         }
         #region Notify Changed
         public event PropertyChangedEventHandler PropertyChanged;
@@ -27,7 +27,7 @@ namespace ImageServiceGUI.Model
         }
         #endregion
         private IISClient client;
-          
+        // private ObservableCollection<string> Handlers = new ObservableCollection<string>();
 
         private string m_outputDirectory;
         public string OutputDirectory
@@ -69,12 +69,19 @@ namespace ImageServiceGUI.Model
                 OnPropertyChanged("TumbnailSize");
             }
         }
+
         public ObservableCollection<string> Handlers
         {
-            get => throw new NotImplementedException();
-            set => throw new NotImplementedException();
-        }
+            get
+            {
+                throw new NotImplementedException();
+            }
 
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
     }
 }
 
