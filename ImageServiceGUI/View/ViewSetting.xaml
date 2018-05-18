@@ -9,18 +9,23 @@
     <Grid>
         <Canvas>
             <TextBlock Margin="0 10 0 0" FontSize="20">
-                       <Span FontWeight="Bold"> Output Directory:</Span>   {Binding output}
+                       <Span FontWeight="Bold"> Output Directory:</Span>
+              <TextBlock  Text="{Binding getOutputDirectory}"/>
             </TextBlock>
             <TextBlock Margin="0 40 0 0" FontSize="20" >
                        <Bold> Source Name: </Bold>
+                <TextBlock  Text="{Binding getSourceName}"/>
             </TextBlock>
             <TextBlock Margin="0 70 0 0" FontSize="20" >
                         <Bold> Log Name: </Bold>
+                <TextBlock  Text="{Binding getLogName}"/>
             </TextBlock>
             <TextBlock Margin="0 100 0 0" FontSize="20" >
                         <Bold> Thumbnail Size: </Bold>
+                <TextBlock  Text="{Binding getTumbnailSize}"/>
             </TextBlock>
         </Canvas>
         <Button x:Name="Button" Content="Remove" Margin="0,147,0,0" VerticalAlignment="Top" Height="31"/>
+        <ListBox Margin="0,180,0,0" Name="lbUsers" DisplayMemberPath="{Binding getHandlers}"/>
     </Grid>
 </UserControl>

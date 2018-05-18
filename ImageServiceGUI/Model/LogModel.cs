@@ -38,7 +38,7 @@ namespace ImageServiceGUI.Model
             {
                 return logs;
             }
-            set => throw new NotImplementedException();
+            set { throw new NotImplementedException(); }
         }
 
         private void InitData()
