@@ -25,7 +25,6 @@ namespace ImageServiceGUI.Communication
                 using (StreamWriter writer = new StreamWriter(stream))
                 {
                     bool res;
-
                     string commandLine = reader.ReadLine();
                     CommandRecievedEventArgs commandRecievedEventArgs = JsonConvert.DeserializeObject<CommandRecievedEventArgs>(commandLine);
                     string result = ImageController.ExecuteCommand((int)commandRecievedEventArgs.CommandID,
