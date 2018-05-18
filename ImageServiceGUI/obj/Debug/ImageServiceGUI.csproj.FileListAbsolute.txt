@@ -48,3 +48,8 @@ C:\Users\gal\Documents\Visual Studio 2015\Projects\advance2\ImageService\ImageSe
 C:\Users\gal\Documents\Visual Studio 2015\Projects\advance2\ImageService\ImageServiceGUI\obj\Debug\View\ViewLog.baml
 C:\Users\gal\Documents\Visual Studio 2015\Projects\advance2\ImageService\ImageServiceGUI\obj\Debug\View\ViewSetting.baml
 C:\Users\gal\Documents\Visual Studio 2015\Projects\advance2\ImageService\ImageServiceGUI\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\yair144\Documents\Visual Studio 2017\Projects\ImageService\ImageService\ImageServiceGUI\obj\Debug\View\ViewLog.g.cs
+C:\Users\yair144\Documents\Visual Studio 2017\Projects\ImageService\ImageService\ImageServiceGUI\obj\Debug\View\ViewSetting.g.cs
+C:\Users\yair144\Documents\Visual Studio 2017\Projects\ImageService\ImageService\ImageServiceGUI\obj\Debug\GeneratedInternalTypeHelper.g.cs
+C:\Users\yair144\Documents\Visual Studio 2017\Projects\ImageService\ImageService\ImageServiceGUI\obj\Debug\View\ViewLog.baml
+C:\Users\yair144\Documents\Visual Studio 2017\Projects\ImageService\ImageService\ImageServiceGUI\obj\Debug\View\ViewSetting.baml

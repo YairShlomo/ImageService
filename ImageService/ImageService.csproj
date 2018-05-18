@@ -71,6 +71,8 @@
     <Compile Include="Commands\GetConfigCommand.cs" />
     <Compile Include="Communication\ClientHandler.cs" />
     <Compile Include="Communication\IClientHandler.cs" />
+    <Compile Include="Communication\IISClient.cs" />
+    <Compile Include="Communication\ISClient.cs" />
     <Compile Include="Communication\ISServer.cs" />
     <Compile Include="Debug_program.cs" />
     <Compile Include="Commands\ICommand.cs" />
@@ -87,6 +89,7 @@
     </Compile>
     <Compile Include="Infrastructure\Enums\CommandEnum.cs" />
     <Compile Include="Logging\ILoggingService.cs" />
+    <Compile Include="Logging\Log.cs" />
     <Compile Include="Logging\LoggingService.cs" />
     <Compile Include="Logging\Modal\MessageRecievedEventArgs.cs" />
     <Compile Include="Logging\Modal\MessageTypeEnum.cs" />
