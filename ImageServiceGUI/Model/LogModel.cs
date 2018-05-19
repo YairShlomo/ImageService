@@ -14,6 +14,7 @@ namespace ImageServiceGUI.Model
 {
     class LogModel : ILogModel
     {
+        private ObservableCollection<Log> m_Log;
         public LogModel()
         {
             client = GuiClient.Instance;
@@ -36,16 +37,21 @@ namespace ImageServiceGUI.Model
         {
             get
             {
-                return logs;
+                return m_Log;
             }
-            set { throw new NotImplementedException(); }
+        }
+        public void setLogs(Log log)
+        {
+            m_Log.Add(log);
+            OnPropertyChanged("Log");
         }
 
         private void InitData()
         {
             try
             {
-                logs = new ObservableCollection<Log>();
+
+                m_Log = new ObservableCollection<Log>();
                 Object thisLock = new Object();
                 BindingOperations.EnableCollectionSynchronization(logs, thisLock);
                 CommandRecievedEventArgs commandRecievedEventArgs = new CommandRecievedEventArgs((int)CommandEnum.LogCommand, null, "");
@@ -53,7 +59,7 @@ namespace ImageServiceGUI.Model
             }
             catch (Exception ex)
             {
-
+                MessageBox.Show(ex.ToString());
             }
         }
 
@@ -78,7 +84,7 @@ namespace ImageServiceGUI.Model
             }
             catch (Exception ex)
             {
-
+                MessageBox.Show(ex.ToString());
             }
         }
 
@@ -88,7 +94,8 @@ namespace ImageServiceGUI.Model
             {
                 foreach (Log log in JsonConvert.DeserializeObject<ObservableCollection<Log>>(arrivedMessage.Args[0]))
                 {
-                    this.logs.Add(log);
+                    //this.logs.Add(log);
+                    setLogs(log);
                 }
             }
             catch (Exception ex)
@@ -109,10 +116,9 @@ namespace ImageServiceGUI.Model
                 MessageBox.Show(ex.ToString());
             }
         }
-
-        //{ return m_outputDirectory; }
+        /**
         private ObservableCollection<Tuple<MessageTypeEnum, string>> messages;
-    public ObservableCollection<Tuple<MessageTypeEnum, string>> LogMessages
+        public ObservableCollection<Tuple<MessageTypeEnum, string>> LogMessages
         {
             get { return messages; }
             set
@@ -120,6 +126,6 @@ namespace ImageServiceGUI.Model
                 messages = value;
                 OnPropertyChanged("LogMessages");
             }
-        }
+        }**/
     }
 }

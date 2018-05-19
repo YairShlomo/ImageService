@@ -10,12 +10,6 @@
         <FlowDocumentReader>
             <FlowDocument>
                 <Table CellSpacing="5">
-                    <Table.Columns>
-                        <TableColumn/>
-                        <TableColumn/>
-                        <TableColumn/>
-                        <TableColumn/>
-                    </Table.Columns>
                     <TableRowGroup>
                         <!-- Title row for the table. -->
                         <TableRow Background="SkyBlue">
@@ -36,5 +30,6 @@
                 </Table>
             </FlowDocument>
         </FlowDocumentReader>
+        <ListBox Margin="20,88,20,0" Padding="5,0" />
     </Grid>
 </UserControl>

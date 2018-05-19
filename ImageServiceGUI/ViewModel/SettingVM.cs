@@ -11,37 +11,38 @@ namespace ImageServiceGUI.ViewModel
 {
     class SettingVM : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
         private ISettingModel model;
-        private ObservableCollection<string> handlers;
+        int x;
         public SettingVM(ISettingModel model)
-        {
-            this.handlers = new ObservableCollection<string>();
+        {            
             this.model = model;
             this.model.PropertyChanged +=
                 delegate (Object sender, PropertyChangedEventArgs e) {
                     this.PropertyChanged?.Invoke(this, e);
                 };
         }
-        public ObservableCollection<string> getHandlers
+        public ObservableCollection<string> Handlers
         {
-            get { return handlers; }
+            get { return model.Handlers; }
         }
-        public string getSourceName
+        public string SourceName
         {
             get { return model.SourceName; }
         }
-        public string getLogName
+        public string LogName
         {
-            get { return model.LogName; }
+            get { return "model.LogName"; }
         }
-        public string getOutputDirectory
+        public string OutputDirectory
         {
             get { return model.OutputDirectory; }
         }
-        public string getTumbnailSize
+        public string TumbnailSize
         {
             get { return model.TumbnailSize; }
         }
-        public event PropertyChangedEventHandler PropertyChanged;
+
+
     }
 }

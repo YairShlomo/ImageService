@@ -15,22 +15,29 @@ namespace ImageServiceGUI.Model
 {
     class SettingModel : ISettingModel
     {
+        private string m_tumbnailSize;
+        private string m_outputDirectory;
+        private string m_sourceName;
+        private string m_logName;
+        private ObservableCollection<string> m_Handlers;
+        public event PropertyChangedEventHandler PropertyChanged;
+
         public SettingModel()
         {
+           
             client = GuiClient.Instance;
             client.Recieve();
             client.ExecuteReceived += ExecuteReceived;
             InitData();
         }
         #region Notify Changed
-        public event PropertyChangedEventHandler PropertyChanged;
+        
         protected void OnPropertyChanged(string name)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
         #endregion
         public GuiClient client { get; set; }
-        // private ObservableCollection<string> Handlers = new ObservableCollection<string>();
 
 
 
@@ -42,7 +49,9 @@ namespace ImageServiceGUI.Model
                 SourceName = string.Empty;
                 LogName = string.Empty;
                 TumbnailSize = string.Empty;
-                Handlers = new ObservableCollection<string>();
+                m_Handlers = new ObservableCollection<string>();
+                addHandlers("erase 1 SettingModel.InitData");
+                addHandlers("erase 2 SettingModel.InitData");
                 Object thisLock = new Object();
                 BindingOperations.EnableCollectionSynchronization(Handlers, thisLock);
                 string[] arr = new string[5];
@@ -54,8 +63,6 @@ namespace ImageServiceGUI.Model
 
             }
         }
-
-
 
         private void ExecuteReceived(CommandRecievedEventArgs arrivedMessage)
         {
@@ -79,7 +86,6 @@ namespace ImageServiceGUI.Model
 
             }
         }
-
         private void Update(CommandRecievedEventArgs arrivedMessage)
         {
             try
@@ -87,11 +93,11 @@ namespace ImageServiceGUI.Model
                 OutputDirectory = arrivedMessage.Args[0];
                 SourceName = arrivedMessage.Args[1];
                 LogName = arrivedMessage.Args[2];
-                TumbnailSize = arrivedMessage.Args[3];
+                TumbnailSize = arrivedMessage.Args[3];               
                 string[] handlers = arrivedMessage.Args[4].Split(';');
                 foreach (string handler in handlers)
                 {
-                    Handlers.Add(handler);
+                    addHandlers(handler);
                 }
             }
             catch (Exception ex)
@@ -99,7 +105,6 @@ namespace ImageServiceGUI.Model
 
             }
         }
-
         private void CloseHandler(CommandRecievedEventArgs arrivedMessage)
         {
             if (Handlers != null && Handlers.Count > 0 && arrivedMessage.Args != null
@@ -107,9 +112,7 @@ namespace ImageServiceGUI.Model
             {
                 Handlers.Remove(arrivedMessage.Args[0]);
             }
-        }
-
-        private string m_outputDirectory;
+        }        
         public string OutputDirectory
         {
             get { return m_outputDirectory; }
@@ -118,8 +121,7 @@ namespace ImageServiceGUI.Model
                 m_outputDirectory = value;
                 OnPropertyChanged("OutputDirectory");
             }
-        }
-        private string m_sourceName;
+        }        
         public string SourceName
         {
             get { return m_sourceName; }
@@ -128,8 +130,7 @@ namespace ImageServiceGUI.Model
                 m_sourceName = value;
                 OnPropertyChanged("SourceName");
             }
-        }
-        private string m_logName;
+        }        
         public string LogName
         {
             get { return m_logName; }
@@ -138,8 +139,7 @@ namespace ImageServiceGUI.Model
                 m_logName = value;
                 OnPropertyChanged("LogName");
             }
-        }
-        private string m_tumbnailSize;
+        }        
         public string TumbnailSize
         {
             get { return m_tumbnailSize; }
@@ -150,7 +150,17 @@ namespace ImageServiceGUI.Model
             }
         }
 
-        public ObservableCollection<string> Handlers { get; set; }
+        public ObservableCollection<string> Handlers {
+            get
+            {
+                return m_Handlers;
+            }
+        }
+        public void addHandlers(string handler)
+        {
+            m_Handlers.Add(handler);
+            OnPropertyChanged("Handlers");
+        }
 
     }
 }

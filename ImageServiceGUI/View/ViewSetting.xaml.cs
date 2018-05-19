@@ -25,9 +25,32 @@ namespace ImageServiceGUI.View
         SettingVM vm;
         public ViewSetting()
         {
+            
             InitializeComponent();
-           // vm = new SettingVM(new SettingModel());
-           // this.DataContext = vm;
+            //lbUsers.ItemsSource = Handlers;
+            vm = new SettingVM(new SettingModel());
+            this.DataContext = vm;
+        }
+        private void btnDeleteUser_Click(object sender, RoutedEventArgs e)
+        {
+            int x;
+            if (lbUsers.SelectedItem != null)
+            {
+               // string itemToRemove = (string)((ListBox)sender).SelectedItem;
+               // MessageBox.Show(itemToRemove);
+
+                x = 5;
+                foreach (string item in lbUsers.SelectedItems)
+                {
+                    vm.Handlers.Remove(item as string);
+                }
+               // Console.WriteLine(lbUsers.SelectedItems);
+                //vm.Handlers.Remove(itemToRemove);
+                 //vm.Handlers.Remove(lbUsers.SelectedItems.ToString());
+                //vm.Handlers.Remove("erase 1 SettingModel.InitData");
+                //vm.Handlers.Clear();
+                
+            }
         }
     }
 }

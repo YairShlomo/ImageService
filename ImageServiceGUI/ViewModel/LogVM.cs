@@ -1,6 +1,8 @@
-﻿using ImageServiceGUI.Model;
+﻿using ImageService.Logging;
+using ImageServiceGUI.Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
@@ -21,13 +23,10 @@ namespace ImageServiceGUI.ViewModel
                 };
         }
         public event PropertyChangedEventHandler PropertyChanged;
-        
-        public string getLog {
-            //return model.getLog();
-            
-          get {
-                
-                return " "; }
+
+        public ObservableCollection<Log> logs
+        {
+            get { return model.logs; }
         }
     }
 }

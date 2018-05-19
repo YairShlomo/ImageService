@@ -13,7 +13,7 @@ namespace ImageServiceGUI.Model
         string SourceName { get; set; }
         string LogName { get; set; }
         string TumbnailSize { get; set; }
-        ObservableCollection<string> Handlers { get; set; }
-        
+        ObservableCollection<string> Handlers { get; }
+
     }
 }
