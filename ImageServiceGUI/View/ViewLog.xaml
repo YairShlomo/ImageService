@@ -6,6 +6,21 @@
              xmlns:local="clr-namespace:ImageServiceGUI.View"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <Style x:Key="ItemContStyle" TargetType="{x:Type ListViewItem}">
+            <Style.Triggers>
+                <DataTrigger Binding="{Binding Path=Field1}" Value="INFO">
+                    <Setter Property="Background" Value="Green" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=Field1}" Value="ERROR">
+                    <Setter Property="Background" Value="Red" />
+                </DataTrigger>
+                <DataTrigger Binding="{Binding Path=Field1}" Value="WARNING">
+                    <Setter Property="Background" Value="Yellow" />
+                </DataTrigger>
+            </Style.Triggers>
+        </Style>       
+    </UserControl.Resources>
     <Grid>
         <FlowDocumentReader>
             <FlowDocument>
@@ -17,19 +32,20 @@
                                 <Paragraph FontSize="24pt" FontWeight="Bold">Logs</Paragraph>
                             </TableCell>
                         </TableRow>
-                        <!-- Header row for the table. -->
-                        <TableRow Background="LightGoldenrodYellow">
-                            <TableCell>
-                                <Paragraph FontSize="14pt" FontWeight="Bold">Type</Paragraph>
-                            </TableCell>
-                            <TableCell>
-                                <Paragraph FontSize="14pt" FontWeight="Bold">Message</Paragraph>
-                            </TableCell>
-                        </TableRow>
                     </TableRowGroup>
                 </Table>
             </FlowDocument>
         </FlowDocumentReader>
-        <ListBox Margin="20,88,20,0" Padding="5,0" />
+        <ListView Name="listView"  ItemContainerStyle="{StaticResource ItemContStyle}" Margin="20,60,20,0" Padding="5,0" ItemsSource="{Binding Items}">
+            <ListView.View>
+                <GridView >
+                    <GridView.Columns >
+                        <GridViewColumn Header="INFO" Width="110" DisplayMemberBinding="{Binding Path=Field1}" >
+                            </GridViewColumn>
+                        <GridViewColumn Header="Message" Width="Auto" DisplayMemberBinding="{Binding Path=Field2}" />
+                    </GridView.Columns>
+                </GridView>
+            </ListView.View>
+        </ListView>
     </Grid>
 </UserControl>

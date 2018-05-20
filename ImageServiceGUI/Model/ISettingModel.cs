@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
+
 namespace ImageServiceGUI.Model
 {
     interface ISettingModel : INotifyPropertyChanged
@@ -14,6 +15,7 @@ namespace ImageServiceGUI.Model
         string LogName { get; set; }
         string TumbnailSize { get; set; }
         ObservableCollection<string> Handlers { get; }
+        void CloseMessage(string handler);
 
     }
 }

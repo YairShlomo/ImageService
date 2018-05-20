@@ -40,11 +40,11 @@ namespace ImageServiceGUI.Model
                 return m_Log;
             }
         }
-        public void setLogs(Log log)
+      /**  public void setLogs(Log log)
         {
             m_Log.Add(log);
             OnPropertyChanged("Log");
-        }
+        }**/
 
         private void InitData()
         {
@@ -94,8 +94,8 @@ namespace ImageServiceGUI.Model
             {
                 foreach (Log log in JsonConvert.DeserializeObject<ObservableCollection<Log>>(arrivedMessage.Args[0]))
                 {
-                    //this.logs.Add(log);
-                    setLogs(log);
+                    this.logs.Add(log);
+                   // setLogs(log);
                 }
             }
             catch (Exception ex)

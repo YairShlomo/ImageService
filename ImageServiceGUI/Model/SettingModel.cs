@@ -50,8 +50,8 @@ namespace ImageServiceGUI.Model
                 LogName = string.Empty;
                 TumbnailSize = string.Empty;
                 m_Handlers = new ObservableCollection<string>();
-                addHandlers("erase 1 SettingModel.InitData");
-                addHandlers("erase 2 SettingModel.InitData");
+                Handlers.Add("erase 1 SettingModel.InitData");
+                Handlers.Add("erase 2 SettingModel.InitData");
                 Object thisLock = new Object();
                 BindingOperations.EnableCollectionSynchronization(Handlers, thisLock);
                 string[] arr = new string[5];
@@ -97,7 +97,7 @@ namespace ImageServiceGUI.Model
                 string[] handlers = arrivedMessage.Args[4].Split(';');
                 foreach (string handler in handlers)
                 {
-                    addHandlers(handler);
+                    Handlers.Add(handler);
                 }
             }
             catch (Exception ex)
@@ -156,10 +156,16 @@ namespace ImageServiceGUI.Model
                 return m_Handlers;
             }
         }
-        public void addHandlers(string handler)
+     /**   public void addHandlers(string handler)
         {
             m_Handlers.Add(handler);
             OnPropertyChanged("Handlers");
+        }**/
+        public void CloseMessage(string handler)
+        {
+            Console.WriteLine(handler);
+           // Handlers.Add(handler + "checckinfg=");
+            //Handlers.Remove(handler);
         }
 
     }

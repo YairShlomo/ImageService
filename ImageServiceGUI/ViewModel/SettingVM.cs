@@ -13,7 +13,6 @@ namespace ImageServiceGUI.ViewModel
     {
         public event PropertyChangedEventHandler PropertyChanged;
         private ISettingModel model;
-        int x;
         public SettingVM(ISettingModel model)
         {            
             this.model = model;
@@ -41,6 +40,10 @@ namespace ImageServiceGUI.ViewModel
         public string TumbnailSize
         {
             get { return model.TumbnailSize; }
+        }
+        public void closeHandler(string handler)
+        {
+            model.CloseMessage(handler);
         }
 
 

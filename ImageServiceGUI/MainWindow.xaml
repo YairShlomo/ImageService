@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:ImageServiceGUI"
         mc:Ignorable="d"
         xmlns:Controls="clr-namespace:ImageServiceGUI.View"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="350" Width="525">    
     <Grid>
         <TabControl>
             <TabItem Header="Setting">
