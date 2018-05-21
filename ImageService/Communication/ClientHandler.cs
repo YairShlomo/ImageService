@@ -19,20 +19,19 @@ namespace ImageService.Communication
 {
     class ClientHandler : IClientHandler
     {
-        IImageController ImageController { get; set; }
+        ImageServer imageServer  { get; set; }
         ILoggingService Logging { get; set; }
         /// <summary>
         /// ClientHandler constructor.
         /// </summary>
         /// <param name="imageController">IImageController obj</param>
         /// <param name="logging">ILoggingService obj</param>
-        public ClientHandler(IImageController imageController, ILoggingService logging)//, ImageServer imageServer)
+        public ClientHandler(ImageServer m_imageServer, ILoggingService logging)//, ImageServer imageServer)
         {
-            this.ImageController = imageController;
+            this.imageServer = m_imageServer;
             this.Logging = logging;
-
         }
-        private bool m_isStopped = false;
+        private bool isStopped = false;
         public static Mutex Mutex { get; set; }
         /// <summary>
         /// HandleClient function.
@@ -44,20 +43,17 @@ namespace ImageService.Communication
         {
             try
             {
-
                 new Task(() =>
                 {
                     try
                     {
-                        while (!m_isStopped)
+                        while (!isStopped)
                         {
-
                             NetworkStream stream = client.GetStream();
                             BinaryReader reader = new BinaryReader(stream);
                             BinaryWriter writer = new BinaryWriter(stream);
                             string commandLine = reader.ReadString();
                             Logging.Log("ClientHandler got command: " + commandLine, MessageTypeEnum.INFO);
-
                             CommandRecievedEventArgs commandRecievedEventArgs = JsonConvert.DeserializeObject<CommandRecievedEventArgs>(commandLine);
                             if (commandRecievedEventArgs.CommandID == (int)CommandEnum.CloseClient)
                             {
@@ -68,15 +64,14 @@ namespace ImageService.Communication
                             }
                             Console.WriteLine("Got command: {0}", commandLine);
                             bool r;
-                            string result = this.ImageController.ExecuteCommand((int)commandRecievedEventArgs.CommandID,
-                                commandRecievedEventArgs.Args, out r);
+                            imageServer.GuiCommands(commandRecievedEventArgs);
+                            //string result = this.ImageController.ExecuteCommand((int)commandRecievedEventArgs.CommandID,
+                            //  commandRecievedEventArgs.Args, out r);
                             // string result = handleCommand(commandRecievedEventArgs);
                             Mutex.WaitOne();
-
+                            string result = "s";
                             writer.Write(result);
                             Mutex.ReleaseMutex();
-
-
                         }
                     }
                     catch (Exception ex)
@@ -85,7 +80,6 @@ namespace ImageService.Communication
                         Logging.Log(ex.ToString(), MessageTypeEnum.FAIL);
                         client.Close();
                     }
-
                 }).Start();
             }
             catch (Exception ex)
@@ -93,8 +87,6 @@ namespace ImageService.Communication
                 Logging.Log(ex.ToString(), MessageTypeEnum.FAIL);
 
             }
-
-
         }
 
     }

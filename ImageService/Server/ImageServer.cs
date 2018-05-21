@@ -20,9 +20,12 @@ namespace ImageService.Server
        // private Debug_program debug;
         private LinkedList<Task> tasks;
         object lockObject = new object();
+        public Dictionary<string, IDirectoryHandler> Handlers { get; set; }
         #endregion
 
         #region Properties
+        public delegate void NotifyAllClients(CommandRecievedEventArgs commandRecievedEventArgs);
+        public static event NotifyAllClients NotifyAllHandlerRemoved;
         public event EventHandler<CommandRecievedEventArgs> CommandRecieved;          // The event that notifies about a new Command being recieved
         #endregion
 
@@ -37,7 +40,8 @@ namespace ImageService.Server
            // tasks = new LinkedList<Task>();
             m_logging = loggingService;
             m_controller = imageController;
-            
+            Handlers = new Dictionary<string, IDirectoryHandler>();
+
             string[] dirPaths = ConfigurationManager.AppSettings["Handler"].Split(';');
             foreach (string path in dirPaths)
             {
@@ -57,32 +61,52 @@ namespace ImageService.Server
            // debug.write("dirPath\n");
             IDirectoryHandler dirHandler = new DirectoyHandler(dirPath, m_logging, m_controller);
             CommandRecieved += dirHandler.OnCommandRecieved;
-            dirHandler.DirectoryClose += OnClose;
+            dirHandler.DirectoryClose += CloseHandler;
+            Handlers.Add(dirPath, dirHandler);
         }
         /// <summary>
         /// Raises the Close event.
         /// </summary>
         /// <param name="o">The o.</param>
         /// <param name="dirArgs">The <see cref="DirectoryCloseEventArgs"/> instance containing the event data.</param>
-        public void OnClose(object o, DirectoryCloseEventArgs dirArgs)
+        public void CloseHandler(object o, DirectoryCloseEventArgs dirArgs)
         {
-            IDirectoryHandler dirHandler = (IDirectoryHandler)o;
-            CommandRecieved -= dirHandler.OnCommandRecieved;
-            // CommandRecieved
-            dirHandler.StopWatcher();
+            if (Handlers.ContainsKey(dirArgs.DirectoryPath))
+            {
+                IDirectoryHandler dirHandler = (IDirectoryHandler)o;
+                CommandRecieved -= dirHandler.OnCommandRecieved;
+                // CommandRecieved
+                dirHandler.StopWatcher();
+                string closingMessage = "The directory: " + dirArgs.DirectoryPath + "was closed";
+                m_logging.Log(closingMessage, Logging.Modal.MessageTypeEnum.INFO);
 
-
-            string closingMessage = "The directory: " + dirArgs.DirectoryPath + "was closed";
-            m_logging.Log(closingMessage, Logging.Modal.MessageTypeEnum.INFO);
+            }
 
         }
+        public void CloseAHandler(DirectoryCloseEventArgs directoryCloseEventArg)
+        {
+            string handlerPath = directoryCloseEventArg.DirectoryPath;
+            IDirectoryHandler dirHandle = Handlers[handlerPath];
+            CloseHandler(dirHandle,directoryCloseEventArg );
+        }
+        public void GuiCommands(CommandRecievedEventArgs e)
+        {
+            CommandRecieved.Invoke(this,e);
+        }
+        /*
+        public static void NotifyAll(CommandRecievedEventArgs commandRecievedEventArgs)
+        {
+            NotifyAllHandlerRemoved.Invoke(commandRecievedEventArgs);
+        }
+       */
+
         /// <summary>
         /// Closes all the handlers.
         /// </summary>
         public void CloseAll()
         {
             string[] message = { "directory has been closed" };
-            CommandRecievedEventArgs cre = new CommandRecievedEventArgs(1, message, null);
+            CommandRecievedEventArgs cre = new CommandRecievedEventArgs(4, message, "close");
             CommandRecieved.Invoke(this, cre);
         }
     }

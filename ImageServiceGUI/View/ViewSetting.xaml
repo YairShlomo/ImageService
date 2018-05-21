@@ -25,7 +25,8 @@
                 <TextBlock  Text="{Binding TumbnailSize}"/>
             </TextBlock>
         </Canvas>
-        <Button x:Name="Button"  Margin="0,147,0,0" VerticalAlignment="Top" Height="31"  Click="btnDeleteUser_Click">Remove
+        <Button x:Name="Button"  Margin="0,147,0,0" VerticalAlignment="Top" Height="31"  Click="btnDeleteUser_Click" IsEnabled="{Binding SelectedItems.Count, ElementName=lbUsers}"> remove
+
         </Button>
         <ListBox Name="lbUsers"  Margin="0,180,0,0"  ItemsSource="{Binding Handlers}"/>
     </Grid>

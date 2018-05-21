@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using ImageServiceGUI.Communication;
 using ImageService.Logging.Modal;
 using ImageService.Modal;
 using ImageService.Infrastructure.Enums;
@@ -21,10 +20,8 @@ namespace ImageServiceGUI.Model
         private string m_logName;
         private ObservableCollection<string> m_Handlers;
         public event PropertyChangedEventHandler PropertyChanged;
-
         public SettingModel()
         {
-           
             client = GuiClient.Instance;
             client.Recieve();
             client.ExecuteReceived += ExecuteReceived;
@@ -38,9 +35,6 @@ namespace ImageServiceGUI.Model
         }
         #endregion
         public GuiClient client { get; set; }
-
-
-
         private void InitData()
         {
             try
@@ -164,7 +158,9 @@ namespace ImageServiceGUI.Model
         public void CloseMessage(string handler)
         {
             Console.WriteLine(handler);
-           // Handlers.Add(handler + "checckinfg=");
+            CommandRecievedEventArgs commandRecievedEventArgs = new CommandRecievedEventArgs((int)CommandEnum.CloseClient, null, handler);
+            client.Send(commandRecievedEventArgs);
+            //Handlers.Add(handler + "checckinfg=");
             //Handlers.Remove(handler);
         }
 

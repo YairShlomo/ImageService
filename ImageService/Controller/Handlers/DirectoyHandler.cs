@@ -67,11 +67,12 @@ namespace ImageService.Controller.Handlers
             bool result;
             string message= m_controller.ExecuteCommand(e.CommandID, e.Args, out result);
             m_logging.Log(message, MessageTypeEnum.INFO);
-            if (string.Compare(message,"closeDriectory")==0)
+            if ((string.Compare(message,"closeDirectory")==0)||((string.Compare(m_path,e.RequestDirPath)==0)))
             {
                 DirectoryCloseEventArgs close = new DirectoryCloseEventArgs(m_path, "directory has been closed");
                 DirectoryClose.Invoke(this, close);
             }
+            //return message;
         }
         /// <summary>
         /// Stops the watcher.
