@@ -24,6 +24,8 @@ namespace ImageService.Server
         #endregion
 
         #region Properties
+        public event EventHandler<DirectoryCloseEventArgs> DirectoryClose;
+
         public delegate void NotifyAllClients(CommandRecievedEventArgs commandRecievedEventArgs);
         public static event NotifyAllClients NotifyAllHandlerRemoved;
         public event EventHandler<CommandRecievedEventArgs> CommandRecieved;          // The event that notifies about a new Command being recieved
@@ -69,11 +71,11 @@ namespace ImageService.Server
         /// </summary>
         /// <param name="o">The o.</param>
         /// <param name="dirArgs">The <see cref="DirectoryCloseEventArgs"/> instance containing the event data.</param>
-        public void CloseHandler(object o, DirectoryCloseEventArgs dirArgs)
+        public void CloseHandler(object sender,DirectoryCloseEventArgs dirArgs)
         {
             if (Handlers.ContainsKey(dirArgs.DirectoryPath))
             {
-                IDirectoryHandler dirHandler = (IDirectoryHandler)o;
+                IDirectoryHandler dirHandler = Handlers[dirArgs.DirectoryPath];
                 CommandRecieved -= dirHandler.OnCommandRecieved;
                 // CommandRecieved
                 dirHandler.StopWatcher();
@@ -83,6 +85,7 @@ namespace ImageService.Server
             }
 
         }
+        /*
         public void CloseAHandler(DirectoryCloseEventArgs directoryCloseEventArg)
         {
             string handlerPath = directoryCloseEventArg.DirectoryPath;
@@ -93,6 +96,7 @@ namespace ImageService.Server
         {
             CommandRecieved.Invoke(this,e);
         }
+        */
         /*
         public static void NotifyAll(CommandRecievedEventArgs commandRecievedEventArgs)
         {

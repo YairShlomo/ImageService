@@ -8,6 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ImageService.Server;
+using ImageService.Logging;
+
 namespace ImageService.Controller
 {
     public class ImageController : IImageController
@@ -20,7 +22,7 @@ namespace ImageService.Controller
         /// Initializes a new instance of the <see cref="ImageController"/> class.
         /// </summary>
         /// <param name="modal">The modal.</param>
-        public ImageController(IImageServiceModal modal)
+        public ImageController(IImageServiceModal modal, ILoggingService loggingService)
         {
             m_modal = modal;                    // Storing the Modal Of The System
             CommandEnum y = CommandEnum.NewFileCommand;
@@ -35,13 +37,26 @@ namespace ImageService.Controller
                 // For Now will contain NEW_FILE_COMMAND
                 {(int)y, new NewFileCommand(m_modal) },
                  {(int)g, new GetConfigCommand()},
-                 { (int)l, new LogCommand()},
+                 { (int)l, new LogCommand(loggingService)},
                  { (int)a, new AddLog(m_modal)},
                   {(int)c, new CloseCommand(m_modal)},
-                 { (int)ch, new CloseHandler()}
+                 { (int)ch, new CloseHandler(imageServer)}
                 // { (int)cc, new CloseClient()}
              
         };
+        }
+        public ImageServer ImageServer
+        {
+            get
+            {
+                return imageServer;
+            }
+            set
+            {
+                this.imageServer = value;
+                this.commands[((int)CommandEnum.CloseHandler)] = new CloseHandler(imageServer);
+
+            }
         }
         /// <summary>
         /// Executes the command.

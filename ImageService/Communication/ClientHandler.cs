@@ -19,17 +19,20 @@ namespace ImageService.Communication
 {
     class ClientHandler : IClientHandler
     {
-        ImageServer imageServer  { get; set; }
+        ImageController imageController { get; set; }
         ILoggingService Logging { get; set; }
+        BinaryReader reader;
+        BinaryWriter writer;
         /// <summary>
         /// ClientHandler constructor.
         /// </summary>
         /// <param name="imageController">IImageController obj</param>
         /// <param name="logging">ILoggingService obj</param>
-        public ClientHandler(ImageServer m_imageServer, ILoggingService logging)//, ImageServer imageServer)
+        public ClientHandler(ImageController m_imageController, ILoggingService logging)//, ImageServer imageServer)
         {
-            this.imageServer = m_imageServer;
+            this.imageController = m_imageController;
             this.Logging = logging;
+            this.Logging.MessageRecieved += send;
         }
         private bool isStopped = false;
         public static Mutex Mutex { get; set; }
@@ -50,8 +53,8 @@ namespace ImageService.Communication
                         while (!isStopped)
                         {
                             NetworkStream stream = client.GetStream();
-                            BinaryReader reader = new BinaryReader(stream);
-                            BinaryWriter writer = new BinaryWriter(stream);
+                            reader = new BinaryReader(stream);
+                            writer = new BinaryWriter(stream);
                             string commandLine = reader.ReadString();
                             Logging.Log("ClientHandler got command: " + commandLine, MessageTypeEnum.INFO);
                             CommandRecievedEventArgs commandRecievedEventArgs = JsonConvert.DeserializeObject<CommandRecievedEventArgs>(commandLine);
@@ -60,18 +63,17 @@ namespace ImageService.Communication
                                 clients.Remove(client);
                                 client.Close();
                                 break;
-
                             }
                             Console.WriteLine("Got command: {0}", commandLine);
                             bool r;
-                            imageServer.GuiCommands(commandRecievedEventArgs);
-                            //string result = this.ImageController.ExecuteCommand((int)commandRecievedEventArgs.CommandID,
-                            //  commandRecievedEventArgs.Args, out r);
+                           // imageServer.GuiCommands(commandRecievedEventArgs);
+                             string result = imageController.ExecuteCommand((int)commandRecievedEventArgs.CommandID,
+                             commandRecievedEventArgs.Args, out r);
                             // string result = handleCommand(commandRecievedEventArgs);
                             Mutex.WaitOne();
-                            string result = "s";
                             writer.Write(result);
                             Mutex.ReleaseMutex();
+
                         }
                     }
                     catch (Exception ex)
@@ -88,6 +90,13 @@ namespace ImageService.Communication
 
             }
         }
-
+        public void send(object o, MessageRecievedEventArgs dirArgs)
+        {
+            MessageTypeEnum s = dirArgs.Status;
+            string[] Args= { Convert.ToString((int)dirArgs.Status), dirArgs.Message };
+            CommandRecievedEventArgs cre = new CommandRecievedEventArgs((int)CommandEnum.AddLog, Args, null);
+            string jsonCommand = JsonConvert.SerializeObject(dirArgs);
+            writer.Write(jsonCommand);
+        }
     }
 }

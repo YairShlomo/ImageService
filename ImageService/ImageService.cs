@@ -80,7 +80,7 @@ namespace ImageService
 
             
             logging = new LoggingService();
-            controller = new ImageController(modal);
+            controller = new ImageController(modal,logging);
             m_imageServer = new ImageServer(logging, controller);
            
             // Update the service state to Start Pending.  

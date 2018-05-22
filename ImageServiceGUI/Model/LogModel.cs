@@ -50,7 +50,6 @@ namespace ImageServiceGUI.Model
         {
             try
             {
-
                 m_Log = new ObservableCollection<Log>();
                 Object thisLock = new Object();
                 BindingOperations.EnableCollectionSynchronization(logs, thisLock);
@@ -108,7 +107,11 @@ namespace ImageServiceGUI.Model
         {
             try
             {
-                Log newLogEntry = new Log { Type = responseObj.Args[0], Message = responseObj.Args[1] };
+                //int s = Convert.ToInt32(responseObj.Args[0]);
+                
+                //MessageTypeEnum foo = (MessageTypeEnum)Enum.ToObject(typeof(MessageTypeEnum), s);
+
+                Log newLogEntry = new Log { Type =(responseObj.Args[0]), Message = responseObj.Args[1] };
                 logs.Insert(0,newLogEntry);
             }
             catch (Exception ex)

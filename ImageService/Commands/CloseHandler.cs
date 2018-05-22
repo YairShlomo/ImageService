@@ -13,10 +13,12 @@ namespace ImageService.Commands
 {
     class CloseHandler : ICommand
     {
-        //private ImageServer m_imageServer;
+        private ImageServer m_imageServer;
 
-        public CloseHandler()
+        public CloseHandler(ImageServer imageServer)
         {
+            this.m_imageServer = imageServer;
+
 
         }
 
@@ -52,7 +54,7 @@ namespace ImageService.Commands
                 config.Save(ConfigurationSaveMode.Modified);
                 ConfigurationManager.RefreshSection("appSettings");
                 DirectoryCloseEventArgs directoryCloseEventArgs = new DirectoryCloseEventArgs(HandlertoDelete, null);
-               // m_imageServer.CloseAHandler(directoryCloseEventArgs);
+                m_imageServer.CloseHandler(this,directoryCloseEventArgs);
                 //string[] array = new string[1];
                 //array[0] = HandlertoDelete;
                 //CommandRecievedEventArgs notifyParams = new CommandRecievedEventArgs((int)CommandEnum.CloseHandler, array, "");
