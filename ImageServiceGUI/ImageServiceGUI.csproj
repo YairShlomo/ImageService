@@ -129,17 +129,17 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ImageServer.Communication\ImageServer.Communication.csproj">
+    <ProjectReference Include="..\ImageServer.Communication\ImageService.Communication.csproj">
       <Project>{6ada298f-93a6-446d-9d34-ca19bbdde902}</Project>
-      <Name>ImageServer.Communication</Name>
+      <Name>ImageService.Communication</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ImageServer.Infrastructure\ImageServer.Infrastructure.csproj">
+    <ProjectReference Include="..\ImageServer.Infrastructure\ImageService.Infrastructure.csproj">
       <Project>{6cebce64-a174-4fc3-a9f4-6dca519f45c8}</Project>
-      <Name>ImageServer.Infrastructure</Name>
+      <Name>ImageService.Infrastructure</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ImageServer.Logging\ImageServer.Logging.csproj">
+    <ProjectReference Include="..\ImageServer.Logging\ImageService.Logging.csproj">
       <Project>{6433eae9-179e-4b63-92f9-7e124e8670cd}</Project>
-      <Name>ImageServer.Logging</Name>
+      <Name>ImageService.Logging</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

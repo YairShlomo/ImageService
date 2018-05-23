@@ -5,7 +5,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using ImageServer.Infrastructure.Modal;
+using ImageService.Infrastructure.Modal;
 
 
 namespace ImageService.Logging

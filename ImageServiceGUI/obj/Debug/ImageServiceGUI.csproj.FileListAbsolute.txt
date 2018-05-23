@@ -12,13 +12,9 @@ C:\Users\yair144\Documents\Visual Studio 2017\Projects\ImageService\ImageService
 C:\Users\yair144\Documents\Visual Studio 2017\Projects\ImageService\ImageService\ImageServiceGUI\obj\Debug\ImageServiceGUI.csproj.CoreCompileInputs.cache
 C:\Users\yair144\Documents\Visual Studio 2017\Projects\ImageService\ImageService\ImageServiceGUI\obj\Debug\ImageServiceGUI.exe
 C:\Users\yair144\Documents\Visual Studio 2017\Projects\ImageService\ImageService\ImageServiceGUI\obj\Debug\ImageServiceGUI.pdb
-C:\Users\yair144\Documents\Visual Studio 2017\Projects\ImageService\ImageService\ImageServiceGUI\obj\Debug\ImageServiceGUI.csprojResolveAssemblyReference.cache
 C:\Users\yair144\Documents\Visual Studio 2017\Projects\ImageService\ImageService\ImageServiceGUI\bin\Debug\CommonServiceLocator.dll
-C:\Users\yair144\Documents\Visual Studio 2017\Projects\ImageService\ImageService\ImageServiceGUI\bin\Debug\ImageService.exe
 C:\Users\yair144\Documents\Visual Studio 2017\Projects\ImageService\ImageService\ImageServiceGUI\bin\Debug\Prism.dll
 C:\Users\yair144\Documents\Visual Studio 2017\Projects\ImageService\ImageService\ImageServiceGUI\bin\Debug\Newtonsoft.Json.dll
-C:\Users\yair144\Documents\Visual Studio 2017\Projects\ImageService\ImageService\ImageServiceGUI\bin\Debug\ImageService.pdb
-C:\Users\yair144\Documents\Visual Studio 2017\Projects\ImageService\ImageService\ImageServiceGUI\bin\Debug\ImageService.exe.config
 C:\Users\yair144\Documents\Visual Studio 2017\Projects\ImageService\ImageService\ImageServiceGUI\bin\Debug\Prism.xml
 C:\Users\yair144\Documents\Visual Studio 2017\Projects\ImageService\ImageService\ImageServiceGUI\bin\Debug\Newtonsoft.Json.xml
 C:\Users\yair144\Documents\Visual Studio 2017\Projects\ImageService\ImageService\ImageServiceGUI\obj\Debug\ImageServiceGUI.csproj.CopyComplete
@@ -53,3 +49,9 @@ C:\Users\yair144\Documents\Visual Studio 2017\Projects\ImageService\ImageService
 C:\Users\yair144\Documents\Visual Studio 2017\Projects\ImageService\ImageService\ImageServiceGUI\obj\Debug\GeneratedInternalTypeHelper.g.cs
 C:\Users\yair144\Documents\Visual Studio 2017\Projects\ImageService\ImageService\ImageServiceGUI\obj\Debug\View\ViewLog.baml
 C:\Users\yair144\Documents\Visual Studio 2017\Projects\ImageService\ImageService\ImageServiceGUI\obj\Debug\View\ViewSetting.baml
+C:\Users\yair144\Documents\Visual Studio 2017\Projects\ImageService\ImageService\ImageServiceGUI\bin\Debug\ImageServer.Communication.dll
+C:\Users\yair144\Documents\Visual Studio 2017\Projects\ImageService\ImageService\ImageServiceGUI\bin\Debug\ImageServer.Infrastructure.dll
+C:\Users\yair144\Documents\Visual Studio 2017\Projects\ImageService\ImageService\ImageServiceGUI\bin\Debug\ImageServer.Logging.dll
+C:\Users\yair144\Documents\Visual Studio 2017\Projects\ImageService\ImageService\ImageServiceGUI\bin\Debug\ImageServer.Communication.pdb
+C:\Users\yair144\Documents\Visual Studio 2017\Projects\ImageService\ImageService\ImageServiceGUI\bin\Debug\ImageServer.Infrastructure.pdb
+C:\Users\yair144\Documents\Visual Studio 2017\Projects\ImageService\ImageService\ImageServiceGUI\bin\Debug\ImageServer.Logging.pdb

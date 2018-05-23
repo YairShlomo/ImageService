@@ -8,8 +8,8 @@ using System.ComponentModel;
 
 using ImageService.Infrastructure.Enums;
 using System.Windows.Data;
-using ImageServer.Infrastructure.Modal;
-using ImageServer.Infrastructure.Modal.Event;
+using ImageService.Infrastructure.Modal;
+using ImageService.Infrastructure.Modal.Event;
 namespace ImageServiceGUI.Model
 {
     class SettingModel : ISettingModel

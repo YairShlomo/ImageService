@@ -87,8 +87,8 @@ public class Singleton
 }
 */
 using System;
-using ImageServer.Infrastructure.Modal;
-using ImageServer.Infrastructure.Modal.Event;
+using ImageService.Infrastructure.Modal;
+using ImageService.Infrastructure.Modal.Event;
 using System.Text;
 using System.Net;
 using System.Net.Sockets;

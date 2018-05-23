@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ImageServer.Infrastructure.Modal
+namespace ImageService.Infrastructure.Modal
 {
     public class MessageRecievedEventArgs : EventArgs
     {

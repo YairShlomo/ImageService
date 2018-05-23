@@ -4,8 +4,8 @@ using System.Net;
 using System.Threading.Tasks;
 using ImageService.Logging;
 using System.Collections.Generic;
-using ImageServer.Infrastructure.Modal.Event;
-using ImageServer.Infrastructure.Modal;
+using ImageService.Infrastructure.Modal.Event;
+using ImageService.Infrastructure.Modal;
 
 using System.IO;
 using Newtonsoft.Json;

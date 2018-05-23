@@ -13,8 +13,8 @@ using ImageService.Infrastructure.Enums;
 using System.Configuration;
 using ImageService.Logging;
 using System.Threading;
-using ImageServer.Infrastructure.Modal.Event;
-using ImageServer.Infrastructure.Modal;
+using ImageService.Infrastructure.Modal.Event;
+using ImageService.Infrastructure.Modal;
 
 namespace ImageService.Communication
 {

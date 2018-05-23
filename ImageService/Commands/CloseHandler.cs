@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Net.Sockets;
-using ImageServer.Infrastructure.Modal.Event;
+using ImageService.Infrastructure.Modal.Event;
 
 namespace ImageService.Commands
 {

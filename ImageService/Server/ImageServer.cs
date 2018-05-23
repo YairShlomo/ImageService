@@ -10,8 +10,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Collections.Specialized;
 using System.Configuration;
-using ImageServer.Infrastructure.Modal.Event;
-using ImageServer.Infrastructure.Modal;
+using ImageService.Infrastructure.Modal.Event;
+using ImageService.Infrastructure.Modal;
 
 namespace ImageService.Server
 {

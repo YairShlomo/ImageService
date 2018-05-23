@@ -5,8 +5,8 @@ using System.ComponentModel;
 using ImageService.Infrastructure.Enums;
 using System.Windows.Data;
 using ImageService.Logging;
-using ImageServer.Infrastructure.Modal;
-using ImageServer.Infrastructure.Modal.Event;
+using ImageService.Infrastructure.Modal;
+using ImageService.Infrastructure.Modal.Event;
 using System.Windows;
 
 using Newtonsoft.Json;

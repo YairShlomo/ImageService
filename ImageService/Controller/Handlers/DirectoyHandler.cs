@@ -10,8 +10,8 @@ using ImageService.Infrastructure.Enums;
 using ImageService.Logging;
 using System.Text.RegularExpressions;
 //using ImageService.Controller.Handlers;
-using ImageServer.Infrastructure.Modal.Event;
-using ImageServer.Infrastructure.Modal;
+using ImageService.Infrastructure.Modal.Event;
+using ImageService.Infrastructure.Modal;
 
 namespace ImageService.Controller.Handlers
 {

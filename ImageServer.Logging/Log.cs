@@ -1,5 +1,5 @@
 ﻿using System;
-using ImageServer.Infrastructure.Modal
+using ImageService.Infrastructure.Modal;
 
 namespace ImageService.Logging
 {
