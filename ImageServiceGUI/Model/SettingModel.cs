@@ -48,8 +48,8 @@ namespace ImageServiceGUI.Model
                 Handlers.Add("erase 2 SettingModel.InitData");
                 Object thisLock = new Object();
                 BindingOperations.EnableCollectionSynchronization(Handlers, thisLock);
-                string[] arr = new string[5];
-                CommandRecievedEventArgs request = new CommandRecievedEventArgs((int)CommandEnum.GetConfigCommand, arr, "");
+                string[] Args = new string[5];
+                CommandRecievedEventArgs request = new CommandRecievedEventArgs((int)CommandEnum.GetConfigCommand, Args, "");
                 client.Send(request);
             }
             catch (Exception ex)

@@ -53,7 +53,10 @@ namespace ImageServiceGUI.Model
                 m_Log = new ObservableCollection<Log>();
                 Object thisLock = new Object();
                 BindingOperations.EnableCollectionSynchronization(logs, thisLock);
-                CommandRecievedEventArgs commandRecievedEventArgs = new CommandRecievedEventArgs((int)CommandEnum.LogCommand, null, "");
+                string[] Args = new string[5];
+
+                CommandRecievedEventArgs commandRecievedEventArgs = new CommandRecievedEventArgs((int)CommandEnum.LogCommand, Args, "");
+                Console.WriteLine((int)commandRecievedEventArgs.CommandID+"\n");
                 client.Send(commandRecievedEventArgs);
             }
             catch (Exception ex)

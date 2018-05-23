@@ -107,9 +107,11 @@ namespace ImageServiceGUI
         private static GuiClient instance;
         private TcpClient client;
         public bool Connected { get; set; }
-        private bool isStopped;
+       // private bool isStopped;
         private static Mutex mutex = new Mutex();
         public event ExecuteReceivedMessage ExecuteReceived;
+        private Debug_program debug;
+
 
 
         private GuiClient()
@@ -126,6 +128,8 @@ namespace ImageServiceGUI
             {
                 Console.WriteLine(ex.ToString());
                 Connected = false;
+                Console.WriteLine("You are not connected");
+
             }
         }
         public static GuiClient Instance
@@ -150,12 +154,16 @@ namespace ImageServiceGUI
                     BinaryWriter writer = new BinaryWriter(stream);
                     // Send data to server
                     Console.WriteLine($"Send {jsonCommand} to Server");
+                   // debug.write("send from Guiclient" + jsonCommand + "\n");
+
                     mutex.WaitOne();
+
                     writer.Write(jsonCommand);
                     mutex.ReleaseMutex();
                 }
-                catch (Exception ex)
+                catch (Exception e)
                 {
+                    Console.WriteLine($"excption thrown sender" + e.Message);
 
                 }
             }).Start();
@@ -167,18 +175,22 @@ namespace ImageServiceGUI
             {
                 try
                 {
-                    while (!isStopped)
+                    Console.WriteLine("Recived"+ Connected);
+
+                    while (Connected)
                     {
                         NetworkStream stream = client.GetStream();
                         BinaryReader reader = new BinaryReader(stream);
                         string jsonArrivedMessage = reader.ReadString();
+                        debug.write("recived client:" + jsonArrivedMessage + "\n");
                         Console.WriteLine($"Recieve {jsonArrivedMessage} from Server");
                         CommandRecievedEventArgs arrivedMessage = JsonConvert.DeserializeObject<CommandRecievedEventArgs>(jsonArrivedMessage);
                         ExecuteReceived?.Invoke(arrivedMessage);
                     }
                 }
-                catch (Exception ex)
+                catch (Exception e)
                 {
+                    Console.WriteLine($"excption thrown reciver"+e.Message);
 
                 }
             }).Start();
@@ -188,7 +200,7 @@ namespace ImageServiceGUI
             CommandRecievedEventArgs commandRecievedEventArgs = new CommandRecievedEventArgs((int)CommandEnum.CloseClient, null, "");
             Send(commandRecievedEventArgs);
             client.Close();
-            isStopped = true;
+            Connected = false;
         }
     }
 }

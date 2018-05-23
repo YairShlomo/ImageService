@@ -35,7 +35,11 @@ namespace ImageService.Communication
             this.imageController = m_imageController;
             this.Logging = logging;
             this.Logging.MessageRecieved += send;
+            Console.WriteLine("ClientHandlerconstructor");
+
             debug = new Debug_program();
+            debug.write("ClientHandlerconstructor");
+
         }
         private bool isRunning = false;
         public static Mutex Mutex { get; set; }
@@ -57,13 +61,22 @@ namespace ImageService.Communication
                         isRunning = true;
                         while (isRunning)
                         {
+                            Console.WriteLine("chbefore reading");
+
                             NetworkStream stream = client.GetStream();
                             reader = new BinaryReader(stream);
                             writer = new BinaryWriter(stream);
+                           // Mutex.WaitOne();
+
                             string commandLine = reader.ReadString();
+                            //Mutex.ReleaseMutex();
+
                             debug.write("after reading");
+                            //Console.WriteLine("chafter reading\n");
                             Logging.Log("ClientHandler got command: " + commandLine, MessageTypeEnum.INFO);
                             CommandRecievedEventArgs commandRecievedEventArgs = JsonConvert.DeserializeObject<CommandRecievedEventArgs>(commandLine);
+                           // Console.WriteLine("chafter reading\n");
+
                             if (commandRecievedEventArgs.CommandID == (int)CommandEnum.CloseClient)
                             {
                                 clients.Remove(client);
@@ -76,19 +89,24 @@ namespace ImageService.Communication
                            // imageServer.GuiCommands(commandRecievedEventArgs);
                              string result = imageController.ExecuteCommand((int)commandRecievedEventArgs.CommandID,
                              commandRecievedEventArgs.Args, out r);
-                            debug.write("ExecutedCommand"+ (int)commandRecievedEventArgs.CommandID);
+                            //Console.WriteLine("chExecutedCommand"+ (int)commandRecievedEventArgs.CommandID);
+                            debug.write("chExecutedCommand" + (int)commandRecievedEventArgs.CommandID+result+"\n");
+
                             // string result = handleCommand(commandRecievedEventArgs);
-                          //  Mutex.WaitOne();
+                            Mutex.WaitOne();
                             writer.Write(result);
-                            debug.write("send " + result);
-                           // Mutex.ReleaseMutex();
+                            debug.write("send " + result+"\n");
+                           // Console.WriteLine("chsend");
+                           Mutex.ReleaseMutex();
 
                         }
                     }
-                    catch (Exception ex)
+                    catch (Exception e)
                     {
+                        Console.WriteLine($"excption thrown senderch" + e.Message);
+
                         clients.Remove(client);
-                        Logging.Log(ex.ToString(), MessageTypeEnum.FAIL);
+                        Logging.Log(e.ToString(), MessageTypeEnum.FAIL);
                         client.Close();
                         isRunning = false;
                     }

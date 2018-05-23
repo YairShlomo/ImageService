@@ -77,7 +77,6 @@ namespace ImageService
         protected override void OnStart(string[] args)
         {
             //debug.write("onstart ImageService");
-
             modal = new ImageServiceModal();            
             logging = new LoggingService();
             controller = new ImageController(modal,logging);

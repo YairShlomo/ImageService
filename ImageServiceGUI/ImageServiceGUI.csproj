@@ -65,6 +65,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Debug_program.cs" />
     <Compile Include="DeleateUser.cs" />
     <Compile Include="ViewModel\LogVM.cs" />
     <Compile Include="ViewModel\SettingVM.cs" />
