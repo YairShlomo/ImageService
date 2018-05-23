@@ -73,8 +73,6 @@
     <Compile Include="Commands\GetConfigCommand.cs" />
     <Compile Include="Communication\ClientHandler.cs" />
     <Compile Include="Communication\IClientHandler.cs" />
-    <Compile Include="Communication\IISClient.cs" />
-    <Compile Include="Communication\ISClient.cs" />
     <Compile Include="Communication\ISServer.cs" />
     <Compile Include="Debug_program.cs" />
     <Compile Include="Commands\ICommand.cs" />
@@ -89,14 +87,8 @@
     <Compile Include="ImageService.Designer.cs">
       <DependentUpon>ImageService.cs</DependentUpon>
     </Compile>
-    <Compile Include="Infrastructure\Enums\CommandEnum.cs" />
     <Compile Include="Logging\ILoggingService.cs" />
-    <Compile Include="Logging\Log.cs" />
     <Compile Include="Logging\LoggingService.cs" />
-    <Compile Include="Logging\Modal\MessageRecievedEventArgs.cs" />
-    <Compile Include="Logging\Modal\MessageTypeEnum.cs" />
-    <Compile Include="Modal\Event\CommandRecievedEventArgs.cs" />
-    <Compile Include="Modal\Event\DirectoryCloseEventArgs.cs" />
     <Compile Include="Modal\IImageServiceModal.cs" />
     <Compile Include="Modal\ImageServiceModal.cs" />
     <Compile Include="Program.cs" />
@@ -146,6 +138,20 @@
     <Content Include="bin\Debug\stdole.dll" />
     <Content Include="bin\Debug\StreamJsonRpc.dll" />
     <Content Include="bin\Debug\System.Threading.Tasks.Dataflow.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ImageServer.Communication\ImageServer.Communication.csproj">
+      <Project>{6ada298f-93a6-446d-9d34-ca19bbdde902}</Project>
+      <Name>ImageServer.Communication</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ImageServer.Infrastructure\ImageServer.Infrastructure.csproj">
+      <Project>{6cebce64-a174-4fc3-a9f4-6dca519f45c8}</Project>
+      <Name>ImageServer.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ImageServer.Logging\ImageServer.Logging.csproj">
+      <Project>{6433eae9-179e-4b63-92f9-7e124e8670cd}</Project>
+      <Name>ImageServer.Logging</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

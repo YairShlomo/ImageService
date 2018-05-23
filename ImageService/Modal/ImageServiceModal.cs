@@ -11,7 +11,6 @@ using System.Threading;
 using System.Threading.Tasks;
 //using ImageService.Modal;
 using ImageService.Logging;
-using ImageService.Logging.Modal;
 using System.Configuration;
 namespace ImageService.Modal
 {
@@ -102,7 +101,7 @@ namespace ImageService.Modal
                     catch (Exception e)
                     {
                         creation = File.GetCreationTime(path);
-                        debug.write("exception" + e.Message);
+                        //debug.write("exception" + e.Message+path);
 
                     }
                     string yearOfCreation = creation.Year.ToString();

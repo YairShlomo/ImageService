@@ -3,8 +3,9 @@ using System.Net.Sockets;
 using System.Net;
 using System.Threading.Tasks;
 using ImageService.Logging;
-using ImageService.Logging.Modal;
 using System.Collections.Generic;
+using ImageServer.Infrastructure.Modal.Event;
+using ImageServer.Infrastructure.Modal;
 
 using System.IO;
 using Newtonsoft.Json;
@@ -22,11 +23,13 @@ namespace ImageService.Communication
         TcpListener Listener { get; set; }
         IClientHandler Ch { get; set; }
         private List<TcpClient> clients = new List<TcpClient>();
+        private Debug_program debug;
         public ISServer(int port, ILoggingService logging, IClientHandler ch)
         {
             this.port = port;
             this.Logging = logging;
             this.ch = ch;
+            debug = new Debug_program();
         }
         public void Start()
         {
@@ -50,6 +53,7 @@ namespace ImageService.Communication
                         {
                             TcpClient client = listener.AcceptTcpClient();
                             Console.WriteLine("Got new connection");
+                            debug.write("Got new connection");
                             clients.Add(client);
                             ch.HandleClient(client, clients);
                         }

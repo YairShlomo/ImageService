@@ -10,6 +10,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Collections.Specialized;
 using System.Configuration;
+using ImageServer.Infrastructure.Modal.Event;
+using ImageServer.Infrastructure.Modal;
+
 namespace ImageService.Server
 {
     public class ImageServer
@@ -80,7 +83,7 @@ namespace ImageService.Server
                 // CommandRecieved
                 dirHandler.StopWatcher();
                 string closingMessage = "The directory: " + dirArgs.DirectoryPath + "was closed";
-                m_logging.Log(closingMessage, Logging.Modal.MessageTypeEnum.INFO);
+                m_logging.Log(closingMessage, MessageTypeEnum.INFO);
 
             }
 

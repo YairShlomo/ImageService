@@ -7,6 +7,12 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageService", "ImageServic
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageServiceGUI", "ImageServiceGUI\ImageServiceGUI.csproj", "{F7BBFBBA-5C24-4088-BD80-F8AD3C0D2C06}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageServer.Communication", "ImageServer.Communication\ImageServer.Communication.csproj", "{6ADA298F-93A6-446D-9D34-CA19BBDDE902}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageServer.Infrastructure", "ImageServer.Infrastructure\ImageServer.Infrastructure.csproj", "{6CEBCE64-A174-4FC3-A9F4-6DCA519F45C8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageServer.Logging", "ImageServer.Logging\ImageServer.Logging.csproj", "{6433EAE9-179E-4B63-92F9-7E124E8670CD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +27,18 @@ Global
 		{F7BBFBBA-5C24-4088-BD80-F8AD3C0D2C06}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F7BBFBBA-5C24-4088-BD80-F8AD3C0D2C06}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F7BBFBBA-5C24-4088-BD80-F8AD3C0D2C06}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6ADA298F-93A6-446D-9D34-CA19BBDDE902}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6ADA298F-93A6-446D-9D34-CA19BBDDE902}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6ADA298F-93A6-446D-9D34-CA19BBDDE902}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6ADA298F-93A6-446D-9D34-CA19BBDDE902}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6CEBCE64-A174-4FC3-A9F4-6DCA519F45C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6CEBCE64-A174-4FC3-A9F4-6DCA519F45C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6CEBCE64-A174-4FC3-A9F4-6DCA519F45C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6CEBCE64-A174-4FC3-A9F4-6DCA519F45C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6433EAE9-179E-4B63-92F9-7E124E8670CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6433EAE9-179E-4B63-92F9-7E124E8670CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6433EAE9-179E-4B63-92F9-7E124E8670CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6433EAE9-179E-4B63-92F9-7E124E8670CD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

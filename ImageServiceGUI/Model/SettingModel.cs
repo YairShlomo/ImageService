@@ -5,11 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using ImageService.Logging.Modal;
-using ImageService.Modal;
+
 using ImageService.Infrastructure.Enums;
 using System.Windows.Data;
-
+using ImageServer.Infrastructure.Modal;
+using ImageServer.Infrastructure.Modal.Event;
 namespace ImageServiceGUI.Model
 {
     class SettingModel : ISettingModel

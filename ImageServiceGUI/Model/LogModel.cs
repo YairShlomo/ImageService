@@ -1,12 +1,12 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using ImageService.Logging.Modal;
-using ImageService.Modal;
+
 using ImageService.Infrastructure.Enums;
 using System.Windows.Data;
 using ImageService.Logging;
-
+using ImageServer.Infrastructure.Modal;
+using ImageServer.Infrastructure.Modal.Event;
 using System.Windows;
 
 using Newtonsoft.Json;

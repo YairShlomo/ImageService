@@ -9,7 +9,8 @@ using System.Collections.ObjectModel;
 using Newtonsoft.Json;
 using ImageService.Modal;
 using ImageService.Infrastructure.Enums;
-using ImageService.Logging.Modal;
+using ImageServer.Infrastructure.Modal;
+using ImageServer.Infrastructure.Modal.Event;
 
 namespace ImageService.Commands
 {

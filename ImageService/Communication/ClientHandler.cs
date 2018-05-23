@@ -12,8 +12,9 @@ using ImageService.Modal;
 using ImageService.Infrastructure.Enums;
 using System.Configuration;
 using ImageService.Logging;
-using ImageService.Logging.Modal;
 using System.Threading;
+using ImageServer.Infrastructure.Modal.Event;
+using ImageServer.Infrastructure.Modal;
 
 namespace ImageService.Communication
 {
@@ -21,6 +22,7 @@ namespace ImageService.Communication
     {
         ImageController imageController { get; set; }
         ILoggingService Logging { get; set; }
+        private Debug_program debug;
         BinaryReader reader;
         BinaryWriter writer;
         /// <summary>
@@ -33,6 +35,7 @@ namespace ImageService.Communication
             this.imageController = m_imageController;
             this.Logging = logging;
             this.Logging.MessageRecieved += send;
+            debug = new Debug_program();
         }
         private bool isStopped = false;
         public static Mutex Mutex { get; set; }
@@ -56,6 +59,7 @@ namespace ImageService.Communication
                             reader = new BinaryReader(stream);
                             writer = new BinaryWriter(stream);
                             string commandLine = reader.ReadString();
+                            debug.write("after reading");
                             Logging.Log("ClientHandler got command: " + commandLine, MessageTypeEnum.INFO);
                             CommandRecievedEventArgs commandRecievedEventArgs = JsonConvert.DeserializeObject<CommandRecievedEventArgs>(commandLine);
                             if (commandRecievedEventArgs.CommandID == (int)CommandEnum.CloseClient)
@@ -69,11 +73,12 @@ namespace ImageService.Communication
                            // imageServer.GuiCommands(commandRecievedEventArgs);
                              string result = imageController.ExecuteCommand((int)commandRecievedEventArgs.CommandID,
                              commandRecievedEventArgs.Args, out r);
+                            debug.write("ExecutedCommand"+ (int)commandRecievedEventArgs.CommandID);
                             // string result = handleCommand(commandRecievedEventArgs);
                             Mutex.WaitOne();
                             writer.Write(result);
+                            debug.write("send " + result);
                             Mutex.ReleaseMutex();
-
                         }
                     }
                     catch (Exception ex)

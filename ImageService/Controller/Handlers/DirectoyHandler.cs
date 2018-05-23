@@ -8,9 +8,10 @@ using System.Threading.Tasks;
 using ImageService.Infrastructure;
 using ImageService.Infrastructure.Enums;
 using ImageService.Logging;
-using ImageService.Logging.Modal;
 using System.Text.RegularExpressions;
 //using ImageService.Controller.Handlers;
+using ImageServer.Infrastructure.Modal.Event;
+using ImageServer.Infrastructure.Modal;
 
 namespace ImageService.Controller.Handlers
 {

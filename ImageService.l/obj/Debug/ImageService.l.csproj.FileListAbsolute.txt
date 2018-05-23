@@ -1,0 +1,6 @@
+C:\Users\yair144\Documents\Visual Studio 2017\Projects\ImageService\ImageService\ImageService.l\bin\Debug\ImageService.l.exe.config
+C:\Users\yair144\Documents\Visual Studio 2017\Projects\ImageService\ImageService\ImageService.l\bin\Debug\ImageService.l.exe
+C:\Users\yair144\Documents\Visual Studio 2017\Projects\ImageService\ImageService\ImageService.l\bin\Debug\ImageService.l.pdb
+C:\Users\yair144\Documents\Visual Studio 2017\Projects\ImageService\ImageService\ImageService.l\obj\Debug\ImageService.l.csproj.CoreCompileInputs.cache
+C:\Users\yair144\Documents\Visual Studio 2017\Projects\ImageService\ImageService\ImageService.l\obj\Debug\ImageService.l.exe
+C:\Users\yair144\Documents\Visual Studio 2017\Projects\ImageService\ImageService\ImageService.l\obj\Debug\ImageService.l.pdb

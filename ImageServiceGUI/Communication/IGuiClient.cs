@@ -14,8 +14,7 @@ namespace ImageServiceGUI
 }
 */
 using System;
-
-using ImageService.Modal;
+using ImageServer.Infrastructure.Modal.Event;
 
 namespace ImageServiceGUI
 
