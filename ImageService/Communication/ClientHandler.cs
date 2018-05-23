@@ -20,7 +20,7 @@ namespace ImageService.Communication
 {
     class ClientHandler : IClientHandler
     {
-        ImageController imageController { get; set; }
+        IImageController imageController { get; set; }
         ILoggingService Logging { get; set; }
         private Debug_program debug;
         BinaryReader reader;
@@ -30,14 +30,14 @@ namespace ImageService.Communication
         /// </summary>
         /// <param name="imageController">IImageController obj</param>
         /// <param name="logging">ILoggingService obj</param>
-        public ClientHandler(ImageController m_imageController, ILoggingService logging)//, ImageServer imageServer)
+        public ClientHandler(IImageController m_imageController, ILoggingService logging)//, ImageServer imageServer)
         {
             this.imageController = m_imageController;
             this.Logging = logging;
             this.Logging.MessageRecieved += send;
             debug = new Debug_program();
         }
-        private bool isStopped = false;
+        private bool isRunning = false;
         public static Mutex Mutex { get; set; }
         /// <summary>
         /// HandleClient function.
@@ -51,9 +51,11 @@ namespace ImageService.Communication
             {
                 new Task(() =>
                 {
+
                     try
                     {
-                        while (!isStopped)
+                        isRunning = true;
+                        while (isRunning)
                         {
                             NetworkStream stream = client.GetStream();
                             reader = new BinaryReader(stream);
@@ -66,6 +68,7 @@ namespace ImageService.Communication
                             {
                                 clients.Remove(client);
                                 client.Close();
+                                isRunning = false;
                                 break;
                             }
                             Console.WriteLine("Got command: {0}", commandLine);
@@ -75,10 +78,11 @@ namespace ImageService.Communication
                              commandRecievedEventArgs.Args, out r);
                             debug.write("ExecutedCommand"+ (int)commandRecievedEventArgs.CommandID);
                             // string result = handleCommand(commandRecievedEventArgs);
-                            Mutex.WaitOne();
+                          //  Mutex.WaitOne();
                             writer.Write(result);
                             debug.write("send " + result);
-                            Mutex.ReleaseMutex();
+                           // Mutex.ReleaseMutex();
+
                         }
                     }
                     catch (Exception ex)
@@ -86,22 +90,27 @@ namespace ImageService.Communication
                         clients.Remove(client);
                         Logging.Log(ex.ToString(), MessageTypeEnum.FAIL);
                         client.Close();
+                        isRunning = false;
                     }
                 }).Start();
             }
             catch (Exception ex)
             {
                 Logging.Log(ex.ToString(), MessageTypeEnum.FAIL);
+                isRunning = false;
 
             }
         }
         public void send(object o, MessageRecievedEventArgs dirArgs)
         {
-            MessageTypeEnum s = dirArgs.Status;
-            string[] Args= { Convert.ToString((int)dirArgs.Status), dirArgs.Message };
-            CommandRecievedEventArgs cre = new CommandRecievedEventArgs((int)CommandEnum.AddLog, Args, null);
-            string jsonCommand = JsonConvert.SerializeObject(dirArgs);
-            writer.Write(jsonCommand);
+            if (isRunning)
+            {
+                MessageTypeEnum s = dirArgs.Status;
+                string[] Args = { Convert.ToString((int)dirArgs.Status), dirArgs.Message };
+                CommandRecievedEventArgs cre = new CommandRecievedEventArgs((int)CommandEnum.AddLog, Args, null);
+                string jsonCommand = JsonConvert.SerializeObject(dirArgs);
+                writer.Write(jsonCommand);
+            }
         }
     }
 }

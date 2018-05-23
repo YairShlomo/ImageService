@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ImageServer.Logging.Properties
+namespace ImageService.Logging.Properties
 {
 
 

@@ -1,9 +1,14 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26730.12
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageService", "ImageService\ImageService.csproj", "{93CB7844-A205-4403-87BB-D5F22FD50D34}"
+	ProjectSection(ProjectDependencies) = postProject
+		{6CEBCE64-A174-4FC3-A9F4-6DCA519F45C8} = {6CEBCE64-A174-4FC3-A9F4-6DCA519F45C8}
+		{6ADA298F-93A6-446D-9D34-CA19BBDDE902} = {6ADA298F-93A6-446D-9D34-CA19BBDDE902}
+		{6433EAE9-179E-4B63-92F9-7E124E8670CD} = {6433EAE9-179E-4B63-92F9-7E124E8670CD}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ImageServiceGUI", "ImageServiceGUI\ImageServiceGUI.csproj", "{F7BBFBBA-5C24-4088-BD80-F8AD3C0D2C06}"
 EndProject

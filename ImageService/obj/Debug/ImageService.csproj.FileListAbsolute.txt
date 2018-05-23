@@ -70,3 +70,9 @@ C:\Users\gal\Documents\Visual Studio 2015\Projects\advance2\ImageService\ImageSe
 C:\Users\gal\Documents\Visual Studio 2015\Projects\advance2\ImageService\ImageService\obj\Debug\ImageService.ImageService.resources
 C:\Users\gal\Documents\Visual Studio 2015\Projects\advance2\ImageService\ImageService\obj\Debug\ImageService.ProjectInstaller.resources
 C:\Users\gal\Documents\Visual Studio 2015\Projects\advance2\ImageService\ImageService\obj\Debug\ImageService.csproj.GenerateResource.Cache
+C:\Users\gal\Documents\Visual Studio 2015\Projects\advance2\ImageService\ImageService\bin\Debug\ImageServer.Communication.dll
+C:\Users\gal\Documents\Visual Studio 2015\Projects\advance2\ImageService\ImageService\bin\Debug\ImageServer.Infrastructure.dll
+C:\Users\gal\Documents\Visual Studio 2015\Projects\advance2\ImageService\ImageService\bin\Debug\ImageServer.Logging.dll
+C:\Users\gal\Documents\Visual Studio 2015\Projects\advance2\ImageService\ImageService\bin\Debug\ImageServer.Communication.pdb
+C:\Users\gal\Documents\Visual Studio 2015\Projects\advance2\ImageService\ImageService\bin\Debug\ImageServer.Infrastructure.pdb
+C:\Users\gal\Documents\Visual Studio 2015\Projects\advance2\ImageService\ImageService\bin\Debug\ImageServer.Logging.pdb

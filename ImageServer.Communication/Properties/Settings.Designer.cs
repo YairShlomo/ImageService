@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ImageServer.Communication.Properties
+namespace ImageService.Communication.Properties
 {
 
 

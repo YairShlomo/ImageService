@@ -12,6 +12,7 @@ using ImageService.Server;
 using ImageService.Modal;
 using ImageService.Controller;
 using ImageService.Logging;
+using ImageService.Communication;
 //using System.Security.Permissions;[assembly: PermissionSetAttribute(SecurityAction.RequestMinimum, Name="Internet")]
 //[assembly: PermissionSetAttribute(SecurityAction.RequestOptional, Unrestricted=true)]
 namespace ImageService
@@ -44,6 +45,7 @@ namespace ImageService
         private IImageServiceModal modal;
         private IImageController controller;
         private ILoggingService logging;
+        private ISServer server;
       //  private Debug_program debug;
 
         public ImageService(string[] args)
@@ -76,13 +78,11 @@ namespace ImageService
         {
             //debug.write("onstart ImageService");
 
-            modal = new ImageServiceModal();
-
-            
+            modal = new ImageServiceModal();            
             logging = new LoggingService();
             controller = new ImageController(modal,logging);
             m_imageServer = new ImageServer(logging, controller);
-           
+            startCommunication();
             // Update the service state to Start Pending.  
             ServiceStatus serviceStatus = new ServiceStatus();
             serviceStatus.dwCurrentState = ServiceState.SERVICE_START_PENDING;
@@ -110,6 +110,7 @@ namespace ImageService
         protected override void OnStop()
         {
             eventLog1.WriteEntry("In onStop.");
+            server.Stop();
             m_imageServer.CloseAll();
         }
         protected override void OnContinue()
@@ -124,5 +125,12 @@ namespace ImageService
         {
 
         }
+        protected void startCommunication()
+        {
+            ClientHandler client = new ClientHandler(controller, logging);
+            server = new ISServer(8000, logging, client);
+            server.Start();
+        }
+
     }
 }

@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ImageServer.Infrastructure.Properties
+namespace ImageService.Infrastructure.Properties
 {
 
 

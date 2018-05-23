@@ -90,12 +90,10 @@ namespace ImageService.Modal
                     Directory.CreateDirectory(thumbnailPath);
                     // DateTime creation = File.GetCreationTime(path);
                     DateTime creation;
-                    Debug_program debug = new Debug_program(); ;
 
                     try
                     {
                         creation = GetDateTakenFromImage(path);
-                        debug.write("picture taken: ");
 
                     }
                     catch (Exception e)
