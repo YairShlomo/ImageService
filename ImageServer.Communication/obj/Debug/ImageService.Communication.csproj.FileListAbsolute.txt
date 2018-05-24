@@ -23,3 +23,5 @@ C:\Users\yair144\Documents\Visual Studio 2017\Projects\ImageService\ImageServer.
 C:\Users\yair144\Documents\Visual Studio 2017\Projects\ImageService\ImageServer.Communication\obj\Debug\ImageService.Communication.csproj.CopyComplete
 C:\Users\yair144\Documents\Visual Studio 2017\Projects\ImageService\ImageServer.Communication\obj\Debug\ImageServer.Communication.dll
 C:\Users\yair144\Documents\Visual Studio 2017\Projects\ImageService\ImageServer.Communication\obj\Debug\ImageServer.Communication.pdb
+C:\Users\gal\Documents\Visual Studio 2015\Projects\advance2\ImageService\ImageServer.Communication\bin\Debug\ImageServer.Infrastructure.dll
+C:\Users\gal\Documents\Visual Studio 2015\Projects\advance2\ImageService\ImageServer.Communication\bin\Debug\ImageServer.Infrastructure.pdb

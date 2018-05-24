@@ -11,7 +11,7 @@ namespace ImageServiceGUI
         private string path;
         public Debug_program()
         {
-            path = "C:/Users/yair144/Pictures/debug/debug.txt";
+            path = "C:/Users/gal/Pictures/debug/debug.txt";
         }
         public void write(string message)
         {

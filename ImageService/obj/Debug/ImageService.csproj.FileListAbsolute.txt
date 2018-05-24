@@ -98,3 +98,12 @@ C:\Users\yair144\Documents\Visual Studio 2017\Projects\ImageService\ImageService
 C:\Users\yair144\Documents\Visual Studio 2017\Projects\ImageService\ImageService\obj\Debug\ImageService.csproj.CopyComplete
 C:\Users\yair144\Documents\Visual Studio 2017\Projects\ImageService\ImageService\obj\Debug\ImageService.exe
 C:\Users\yair144\Documents\Visual Studio 2017\Projects\ImageService\ImageService\obj\Debug\ImageService.pdb
+C:\Users\gal\Documents\Visual Studio 2015\Projects\advance2\ImageService\ImageService\bin\Debug\Microsoft.VisualStudio.Utilities.dll
+C:\Users\gal\Documents\Visual Studio 2015\Projects\advance2\ImageService\ImageService\bin\Debug\Microsoft.VisualStudio.Threading.dll
+C:\Users\gal\Documents\Visual Studio 2015\Projects\advance2\ImageService\ImageService\bin\Debug\StreamJsonRpc.dll
+C:\Users\gal\Documents\Visual Studio 2015\Projects\advance2\ImageService\ImageService\bin\Debug\System.Threading.Tasks.Dataflow.dll
+C:\Users\gal\Documents\Visual Studio 2015\Projects\advance2\ImageService\ImageService\bin\Debug\Microsoft.VisualStudio.Validation.dll
+C:\Users\gal\Documents\Visual Studio 2015\Projects\advance2\ImageService\ImageService\bin\Debug\Microsoft.VisualStudio.Utilities.xml
+C:\Users\gal\Documents\Visual Studio 2015\Projects\advance2\ImageService\ImageService\bin\Debug\Microsoft.VisualStudio.Threading.xml
+C:\Users\gal\Documents\Visual Studio 2015\Projects\advance2\ImageService\ImageService\bin\Debug\Microsoft.VisualStudio.Validation.xml
+C:\Users\gal\Documents\Visual Studio 2015\Projects\advance2\ImageService\ImageService\obj\Debug\ImageService.csproj.ImageService.exe.config

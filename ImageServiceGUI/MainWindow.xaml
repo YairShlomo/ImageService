@@ -8,6 +8,15 @@
         xmlns:Controls="clr-namespace:ImageServiceGUI.View"
         Title="MainWindow" Height="350" Width="525">    
     <Grid>
+        <Grid.Style>
+            <Style TargetType="Grid">
+                <Style.Triggers>
+                    <DataTrigger Binding="{Binding isConnected}" Value="False">
+                        <Setter Property="Background" Value="Gray" />
+                    </DataTrigger>
+                </Style.Triggers>
+            </Style>
+        </Grid.Style>
         <TabControl>
             <TabItem Header="Setting">
                 <Controls:ViewSetting />

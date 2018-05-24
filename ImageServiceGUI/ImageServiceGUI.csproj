@@ -66,8 +66,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Debug_program.cs" />
-    <Compile Include="DeleateUser.cs" />
+    <Compile Include="Model\MainWindowModel.cs" />
     <Compile Include="ViewModel\LogVM.cs" />
+    <Compile Include="ViewModel\MainWindowVM.cs" />
     <Compile Include="ViewModel\SettingVM.cs" />
     <Compile Include="View\ViewLog.xaml.cs">
       <DependentUpon>ViewLog.xaml</DependentUpon>
