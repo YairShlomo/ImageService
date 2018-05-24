@@ -5,14 +5,16 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ImageService.Infrastructure.Enums;
 using ImageService.Infrastructure.Modal;
-
+using ImageService.Infrastructure.Modal.Event;
 
 namespace ImageService.Logging
 {
     public class LoggingService : ILoggingService
     {
         public ObservableCollection<Log> ListLog {get; set;}
+        public event UpdateLog UpdateLogEntries;
         public LoggingService()
             {
             ListLog = new ObservableCollection<Log>();
@@ -35,6 +37,24 @@ namespace ImageService.Logging
             eventArgs.Status = type;
 
             MessageRecieved?.Invoke(this, eventArgs);
+            InvokeUpdateEvent(message, type);
+
+        }
+        public void InvokeUpdateEvent(string message, MessageTypeEnum type)
+        {
+            Log log = new Log { Type = Enum.GetName(typeof(MessageTypeEnum), type), Message = message };
+            string[] args = new string[2];
+
+            // args[0] = EntryType, args[1] = Message
+            args[0] = log.Type;
+            args[1] = log.Message;
+            CommandRecievedEventArgs crea = new CommandRecievedEventArgs((int)CommandEnum.AddLog, args, null);
+            if (UpdateLogEntries != null)
+            {
+                UpdateLogEntries?.Invoke(crea);
+
+            }
         }
     }
+
 }

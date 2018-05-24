@@ -13,6 +13,7 @@ using ImageService.Modal;
 using ImageService.Controller;
 using ImageService.Logging;
 using ImageService.Communication;
+using ImageService.Infrastructure.Modal;
 //using System.Security.Permissions;[assembly: PermissionSetAttribute(SecurityAction.RequestMinimum, Name="Internet")]
 //[assembly: PermissionSetAttribute(SecurityAction.RequestOptional, Unrestricted=true)]
 namespace ImageService
@@ -76,14 +77,22 @@ namespace ImageService
 
         protected override void OnStart(string[] args)
         {
+            //eventLog1.WriteEntry("In OnStart");
+
             //debug.write("onstart ImageService");
             modal = new ImageServiceModal();            
             logging = new LoggingService();
+            /*
+            if (logging != null)
+            {
+                logging.InvokeUpdateEvent("In OnStart", MessageTypeEnum.INFO);
+            }
+            */
             controller = new ImageController(modal,logging);
             m_imageServer = new ImageServer(logging, controller);
             controller.ImageServer = m_imageServer;
            
-            startCommunication();
+            StartCommunication();
             // Update the service state to Start Pending.  
             ServiceStatus serviceStatus = new ServiceStatus();
             serviceStatus.dwCurrentState = ServiceState.SERVICE_START_PENDING;
@@ -126,10 +135,13 @@ namespace ImageService
         {
 
         }
-        protected void startCommunication()
+        protected void StartCommunication()
         {
             ClientHandler client = new ClientHandler(controller, logging);
             server = new ISServer(8000, logging, client);
+            ImageServer.NotifyAllHandlerRemoved += server.NotifyAllClientsAboutUpdate;
+            logging.UpdateLogEntries += server.NotifyAllClientsAboutUpdate;
+
             server.Start();
         }
 

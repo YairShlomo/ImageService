@@ -61,7 +61,7 @@ namespace ImageService.Commands
             string[] Args = { HandlertoDelete };
             //array[0] = HandlertoDelete;
             CommandRecievedEventArgs crea = new CommandRecievedEventArgs((int)CommandEnum.CloseHandlerCommand, Args, HandlertoDelete);
-            //ImageServer.NotifyAll(notifyParams);
+            ImageServer.NotifyAll(crea);
             return JsonConvert.SerializeObject(crea);
         }
         /*

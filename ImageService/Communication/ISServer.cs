@@ -10,6 +10,8 @@ using ImageService.Infrastructure.Modal;
 using System.IO;
 using Newtonsoft.Json;
 using ImageService.Modal;
+using System.Threading;
+
 namespace ImageService.Communication
 {
     class ISServer
@@ -24,12 +26,15 @@ namespace ImageService.Communication
         IClientHandler Ch { get; set; }
         private List<TcpClient> clients = new List<TcpClient>();
         private Debug_program debug;
+        private static Mutex m_mutex = new Mutex();
         public ISServer(int port, ILoggingService logging, IClientHandler ch)
         {
             this.port = port;
             this.Logging = logging;
             this.ch = ch;
             debug = new Debug_program();
+            ClientHandler.Mutex = m_mutex;
+
         }
         public void Start()
         {
@@ -97,6 +102,37 @@ namespace ImageService.Communication
             {
                 Logging.Log(ex.ToString(), MessageTypeEnum.ERROR);
 
+            }
+        }
+        public void NotifyAllClientsAboutUpdate(CommandRecievedEventArgs commandRecievedEventArgs)
+        {
+            try
+            {
+                List<TcpClient> copyClients = new List<TcpClient>(clients);
+                foreach (TcpClient client in copyClients)
+                {
+                    new Task(() =>
+                    {
+                        try
+                        {
+                            NetworkStream stream = client.GetStream();
+                            BinaryWriter writer = new BinaryWriter(stream);
+                            string jsonCommand = JsonConvert.SerializeObject(commandRecievedEventArgs);
+                            m_mutex.WaitOne();
+                            writer.Write(jsonCommand);
+                            m_mutex.ReleaseMutex();
+                        }
+                        catch (Exception ex)
+                        {
+                            this.clients.Remove(client);
+                        }
+
+                    }).Start();
+                }
+            }
+            catch (Exception ex)
+            {
+                Logging.Log(ex.ToString(), MessageTypeEnum.ERROR);
             }
         }
 

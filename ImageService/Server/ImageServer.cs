@@ -76,7 +76,7 @@ namespace ImageService.Server
         /// </summary>
         /// <param name="o">The o.</param>
         /// <param name="dirArgs">The <see cref="DirectoryCloseEventArgs"/> instance containing the event data.</param>
-        public void CloseHandler(object sender,DirectoryCloseEventArgs dirArgs)
+        public void CloseHandler(object sender, DirectoryCloseEventArgs dirArgs)
         {
             try
             {
@@ -90,25 +90,26 @@ namespace ImageService.Server
                     string closingMessage = "The directory: " + dirArgs.DirectoryPath + "was closed";
                     debug.write("closehandler :" + closingMessage);
 
-                  m_logging.Log(closingMessage, MessageTypeEnum.INFO);
-
-                } else
-                {
-                    debug.write("closehandler not the path:" +dirArgs.DirectoryPath);
+                    m_logging.Log(closingMessage, MessageTypeEnum.INFO);
 
                 }
-            } catch (Exception e)
+                else
+                {
+                    debug.write("closehandler not the path:" + dirArgs.DirectoryPath);
+
+                }
+            }
+            catch (Exception e)
             {
                 debug.write("closehandlerserver exception :" + e.Message);
             }
 
         }
-        /*
         public static void NotifyAll(CommandRecievedEventArgs commandRecievedEventArgs)
         {
-            NotifyAllHandlerRemoved.Invoke(commandRecievedEventArgs);
+            NotifyAllHandlerRemoved?.Invoke(commandRecievedEventArgs);
         }
-       */
+
 
         /// <summary>
         /// Closes all the handlers.
