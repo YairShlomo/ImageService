@@ -10,6 +10,9 @@ using ImageService.Infrastructure.Enums;
 using System.Windows.Data;
 using ImageService.Infrastructure.Modal;
 using ImageService.Infrastructure.Modal.Event;
+using ImageService.Communication;
+using Newtonsoft.Json;
+
 namespace ImageServiceGUI.Model
 {
     class SettingModel : ISettingModel
@@ -84,14 +87,16 @@ namespace ImageServiceGUI.Model
         {
             try
             {
-                OutputDirectory = arrivedMessage.Args[0];
-                SourceName = arrivedMessage.Args[1];
-                LogName = arrivedMessage.Args[2];
-                TumbnailSize = arrivedMessage.Args[3];               
-                string[] handlers = arrivedMessage.Args[4].Split(';');
-                foreach (string handler in handlers)
+                TcpMessages tcpMessages = JsonConvert.DeserializeObject < TcpMessages > (arrivedMessage.Args[0]);
+                OutputDirectory = tcpMessages.Args[0];
+                SourceName = tcpMessages.Args[1];
+                LogName = tcpMessages.Args[2];
+                TumbnailSize = tcpMessages.Args[3];
+                //string[] handlers = arrivedMessage.Args[4].Split(';');
+                // foreach (string handler in handlers)
+                for (int i = 4; i < tcpMessages.Args.Length; i++)
                 {
-                    Handlers.Add(handler);
+                    Handlers.Add(tcpMessages.Args[i]);
                 }
             }
             catch (Exception ex)

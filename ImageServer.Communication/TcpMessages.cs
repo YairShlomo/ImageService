@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using ImageService.Infrastructure.Enums;
-using Newtonsoft.Json;
+//using Newtonsoft.Json;
 
-namespace ImageService
+namespace ImageService.Communication
 {
    public class TcpMessages
     {

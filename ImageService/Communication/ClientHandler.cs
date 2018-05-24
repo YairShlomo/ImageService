@@ -23,6 +23,7 @@ namespace ImageService.Communication
         IImageController imageController { get; set; }
         ILoggingService Logging { get; set; }
         private Debug_program debug;
+        object mutexWrite = new object();
         BinaryReader reader;
         BinaryWriter writer;
         /// <summary>
@@ -36,7 +37,6 @@ namespace ImageService.Communication
             this.Logging = logging;
             this.Logging.MessageRecieved += send;
             Console.WriteLine("ClientHandlerconstructor");
-
             debug = new Debug_program();
             debug.write("ClientHandlerconstructor");
 
@@ -59,24 +59,20 @@ namespace ImageService.Communication
                     try
                     {
                         isRunning = true;
+                        NetworkStream stream = client.GetStream();
+                        reader = new BinaryReader(stream);
+                        writer = new BinaryWriter(stream);
                         while (isRunning)
                         {
                             Console.WriteLine("chbefore reading");
 
-                            NetworkStream stream = client.GetStream();
-                            reader = new BinaryReader(stream);
-                            writer = new BinaryWriter(stream);
-                           // Mutex.WaitOne();
-
+                           
                             string commandLine = reader.ReadString();
-                            //Mutex.ReleaseMutex();
-
                             debug.write("after reading");
                             //Console.WriteLine("chafter reading\n");
                             Logging.Log("ClientHandler got command: " + commandLine, MessageTypeEnum.INFO);
                             CommandRecievedEventArgs commandRecievedEventArgs = JsonConvert.DeserializeObject<CommandRecievedEventArgs>(commandLine);
                            // Console.WriteLine("chafter reading\n");
-
                             if (commandRecievedEventArgs.CommandID == (int)CommandEnum.CloseClient)
                             {
                                 clients.Remove(client);
@@ -93,18 +89,21 @@ namespace ImageService.Communication
                             debug.write("chExecutedCommand" + (int)commandRecievedEventArgs.CommandID+result+"\n");
 
                             // string result = handleCommand(commandRecievedEventArgs);
-                            Mutex.WaitOne();
-                            writer.Write(result);
+                            // Mutex.WaitOne();
+                            lock (mutexWrite)
+                            {
+                                writer.Write(result);
+                            }
                             debug.write("send " + result+"\n");
                            // Console.WriteLine("chsend");
-                           Mutex.ReleaseMutex();
+                           //Mutex.ReleaseMutex();
 
                         }
                     }
                     catch (Exception e)
                     {
                         Console.WriteLine($"excption thrown senderch" + e.Message);
-
+                        debug.write($"excption thrown senderch" + e.Message);
                         clients.Remove(client);
                         Logging.Log(e.ToString(), MessageTypeEnum.FAIL);
                         client.Close();

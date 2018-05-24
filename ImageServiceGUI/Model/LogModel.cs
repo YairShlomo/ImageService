@@ -18,7 +18,7 @@ namespace ImageServiceGUI.Model
         public LogModel()
         {
             client = GuiClient.Instance;
-            client.Recieve();
+           // client.Recieve();
             client.ExecuteReceived += ExecuteReceived;
             InitData();
         }

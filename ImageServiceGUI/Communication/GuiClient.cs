@@ -97,8 +97,13 @@ using Newtonsoft.Json;
 using System.Threading.Tasks;
 using System.Windows.Threading;
 using System.Threading;
-
+using System.Configuration;
+using Newtonsoft.Json;
+using System.Net.Sockets;
+using ImageService.Communication;
 using ImageService.Infrastructure.Enums;
+using System.Diagnostics;
+
 namespace ImageServiceGUI
 {
     public class GuiClient
@@ -111,8 +116,8 @@ namespace ImageServiceGUI
         private static Mutex mutex = new Mutex();
         public event ExecuteReceivedMessage ExecuteReceived;
         private Debug_program debug;
-
-
+        BinaryReader reader;
+        BinaryWriter writer;
 
         private GuiClient()
         {
@@ -122,6 +127,9 @@ namespace ImageServiceGUI
                 client = new TcpClient();
                 client.Connect(ep);
                 Connected = true;
+                NetworkStream stream = client.GetStream();
+                writer = new BinaryWriter(stream);
+                reader = new BinaryReader(stream);
                 Console.WriteLine("You are connected");
             }
             catch (Exception ex)
@@ -150,14 +158,10 @@ namespace ImageServiceGUI
                 try
                 {
                     string jsonCommand = JsonConvert.SerializeObject(commandRecievedEventArgs);
-                    NetworkStream stream = client.GetStream();
-                    BinaryWriter writer = new BinaryWriter(stream);
                     // Send data to server
                     Console.WriteLine($"Send {jsonCommand} to Server");
                    // debug.write("send from Guiclient" + jsonCommand + "\n");
-
                     mutex.WaitOne();
-
                     writer.Write(jsonCommand);
                     mutex.ReleaseMutex();
                 }
@@ -168,7 +172,6 @@ namespace ImageServiceGUI
                 }
             }).Start();
         }
-
         public void Recieve()
         {
             new Task(() =>
@@ -176,15 +179,14 @@ namespace ImageServiceGUI
                 try
                 {
                     Console.WriteLine("Recived"+ Connected);
-
                     while (Connected)
                     {
-                        NetworkStream stream = client.GetStream();
-                        BinaryReader reader = new BinaryReader(stream);
+                      
                         string jsonArrivedMessage = reader.ReadString();
-                        debug.write("recived client:" + jsonArrivedMessage + "\n");
-                        Console.WriteLine($"Recieve {jsonArrivedMessage} from Server");
+                      // Debug.WriteLine("recived client:" + jsonArrivedMessage + "\n");
+                       Console.WriteLine($"Recieve {jsonArrivedMessage} from Server");
                         CommandRecievedEventArgs arrivedMessage = JsonConvert.DeserializeObject<CommandRecievedEventArgs>(jsonArrivedMessage);
+                        
                         ExecuteReceived?.Invoke(arrivedMessage);
                     }
                 }

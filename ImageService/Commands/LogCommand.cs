@@ -31,7 +31,9 @@ namespace ImageService.Commands
                 string[] Args = { logMessagesString };
                 CommandRecievedEventArgs crea = new CommandRecievedEventArgs((int)CommandEnum.LogCommand, Args, null);
                 result = true;
-                return logMessagesString;
+                string commandSerialized = JsonConvert.SerializeObject(crea);
+
+                return commandSerialized;
             }
             catch (Exception e)
             {

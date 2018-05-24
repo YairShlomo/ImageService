@@ -74,7 +74,6 @@ namespace ImageService.Communication
             }
         }
 
-
         public void NotifyClients(CommandRecievedEventArgs commandRecievedEventArgs)
         {
             try
