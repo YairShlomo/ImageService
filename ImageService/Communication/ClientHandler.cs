@@ -62,17 +62,14 @@ namespace ImageService.Communication
                         NetworkStream stream = client.GetStream();
                         reader = new BinaryReader(stream);
                         writer = new BinaryWriter(stream);
+
                         while (isRunning)
                         {
                             Console.WriteLine("chbefore reading");
-
-                           
                             string commandLine = reader.ReadString();
-                            debug.write("after reading");
-                            //Console.WriteLine("chafter reading\n");
+                            debug.write("after reading"+ commandLine);
                             Logging.Log("ClientHandler got command: " + commandLine, MessageTypeEnum.INFO);
                             CommandRecievedEventArgs commandRecievedEventArgs = JsonConvert.DeserializeObject<CommandRecievedEventArgs>(commandLine);
-                           // Console.WriteLine("chafter reading\n");
                             if (commandRecievedEventArgs.CommandID == (int)CommandEnum.CloseClient)
                             {
                                 clients.Remove(client);
@@ -80,24 +77,22 @@ namespace ImageService.Communication
                                 isRunning = false;
                                 break;
                             }
-                            Console.WriteLine("Got command: {0}", commandLine);
+                           // Console.WriteLine("Got command: {0}", commandLine);
                             bool r;
-                           // imageServer.GuiCommands(commandRecievedEventArgs);
-                             string result = imageController.ExecuteCommand((int)commandRecievedEventArgs.CommandID,
-                             commandRecievedEventArgs.Args, out r);
+                            string result = imageController.ExecuteCommand((int)commandRecievedEventArgs.CommandID,
+                            commandRecievedEventArgs.Args, out r);
+                            debug.write("result is");
                             //Console.WriteLine("chExecutedCommand"+ (int)commandRecievedEventArgs.CommandID);
-                            debug.write("chExecutedCommand" + (int)commandRecievedEventArgs.CommandID+result+"\n");
-
+                            debug.write("chExecutedCommand" + (int)commandRecievedEventArgs.CommandID + result + "\n");
                             // string result = handleCommand(commandRecievedEventArgs);
                             // Mutex.WaitOne();
                             lock (mutexWrite)
                             {
                                 writer.Write(result);
                             }
-                            debug.write("send " + result+"\n");
-                           // Console.WriteLine("chsend");
-                           //Mutex.ReleaseMutex();
-
+                            debug.write("send " + result + "\n");
+                            // Console.WriteLine("chsend");
+                            //Mutex.ReleaseMutex();
                         }
                     }
                     catch (Exception e)
@@ -105,7 +100,7 @@ namespace ImageService.Communication
                         Console.WriteLine($"excption thrown senderch" + e.Message);
                         debug.write($"excption thrown senderch" + e.Message);
                         clients.Remove(client);
-                        Logging.Log(e.ToString(), MessageTypeEnum.FAIL);
+                        Logging.Log(e.ToString(), MessageTypeEnum.ERROR);
                         client.Close();
                         isRunning = false;
                     }
@@ -113,20 +108,29 @@ namespace ImageService.Communication
             }
             catch (Exception ex)
             {
-                Logging.Log(ex.ToString(), MessageTypeEnum.FAIL);
+                Logging.Log(ex.ToString(), MessageTypeEnum.ERROR);
                 isRunning = false;
 
             }
         }
         public void send(object o, MessageRecievedEventArgs dirArgs)
         {
-            if (isRunning)
+            try
             {
-                MessageTypeEnum s = dirArgs.Status;
-                string[] Args = { Convert.ToString((int)dirArgs.Status), dirArgs.Message };
-                CommandRecievedEventArgs cre = new CommandRecievedEventArgs((int)CommandEnum.AddLog, Args, null);
-                string jsonCommand = JsonConvert.SerializeObject(dirArgs);
-                writer.Write(jsonCommand);
+                if (isRunning)
+                {
+                    MessageTypeEnum s = dirArgs.Status;
+                    string[] Args = { Convert.ToString((int)dirArgs.Status), dirArgs.Message };
+                    CommandRecievedEventArgs cre = new CommandRecievedEventArgs((int)CommandEnum.AddLog, Args, null);
+                    string jsonCommand = JsonConvert.SerializeObject(cre);
+                    debug.write("sendlog" + jsonCommand);
+                    writer.Write(jsonCommand);
+                }
+            }
+            catch (Exception e)
+            {
+                debug.write("exception in send -add log" + e.Message);
+
             }
         }
     }

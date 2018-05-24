@@ -18,7 +18,7 @@ namespace ImageServiceGUI.Model
         public LogModel()
         {
             client = GuiClient.Instance;
-           // client.Recieve();
+            client.Recieve();
             client.ExecuteReceived += ExecuteReceived;
             InitData();
         }
@@ -100,9 +100,11 @@ namespace ImageServiceGUI.Model
                    // setLogs(log);
                 }
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                MessageBox.Show(ex.ToString());
+                Console.WriteLine("exception in update-logmodel"+e.Message);
+
+                MessageBox.Show(e.ToString());
             }
         }
 
@@ -117,21 +119,13 @@ namespace ImageServiceGUI.Model
                 Log newLogEntry = new Log { Type =(responseObj.Args[0]), Message = responseObj.Args[1] };
                 logs.Insert(0,newLogEntry);
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                MessageBox.Show(ex.ToString());
+                Console.WriteLine("exception in Addlog-logmodel" + e.Message);
+
+                MessageBox.Show(e.ToString());
             }
         }
-        /**
-        private ObservableCollection<Tuple<MessageTypeEnum, string>> messages;
-        public ObservableCollection<Tuple<MessageTypeEnum, string>> LogMessages
-        {
-            get { return messages; }
-            set
-            {
-                messages = value;
-                OnPropertyChanged("LogMessages");
-            }
-        }**/
+       
     }
 }

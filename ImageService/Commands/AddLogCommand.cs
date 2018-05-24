@@ -12,7 +12,7 @@ namespace ImageService.Commands
     /// close command
     /// </summary>
     /// <seealso cref="ImageService.Commands.ICommand" />
-    public class AddLog : ICommand
+    public class AddLogCommand : ICommand
     {
         private IImageServiceModal m_modal;
 
@@ -20,7 +20,7 @@ namespace ImageService.Commands
         /// Initializes a new instance of the <see cref="CloseCommand"/> class.
         /// </summary>
         /// <param name="modal">The modal.</param>
-        public AddLog(IImageServiceModal modal)
+        public AddLogCommand(IImageServiceModal modal)
         {
             m_modal = modal;            // Storing the Modal
         }

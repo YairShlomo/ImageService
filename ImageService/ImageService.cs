@@ -81,6 +81,8 @@ namespace ImageService
             logging = new LoggingService();
             controller = new ImageController(modal,logging);
             m_imageServer = new ImageServer(logging, controller);
+            controller.ImageServer = m_imageServer;
+           
             startCommunication();
             // Update the service state to Start Pending.  
             ServiceStatus serviceStatus = new ServiceStatus();

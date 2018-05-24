@@ -26,7 +26,7 @@ namespace ImageServiceGUI.Model
         public SettingModel()
         {
             client = GuiClient.Instance;
-            client.Recieve();
+            //client.Recieve();
             client.ExecuteReceived += ExecuteReceived;
             InitData();
         }
@@ -47,8 +47,6 @@ namespace ImageServiceGUI.Model
                 LogName = string.Empty;
                 TumbnailSize = string.Empty;
                 m_Handlers = new ObservableCollection<string>();
-                Handlers.Add("erase 1 SettingModel.InitData");
-                Handlers.Add("erase 2 SettingModel.InitData");
                 Object thisLock = new Object();
                 BindingOperations.EnableCollectionSynchronization(Handlers, thisLock);
                 string[] Args = new string[5];
@@ -72,7 +70,7 @@ namespace ImageServiceGUI.Model
                         case (int)CommandEnum.GetConfigCommand:
                             Update(arrivedMessage);
                             break;
-                        case (int)CommandEnum.CloseHandler:
+                        case (int)CommandEnum.CloseHandlerCommand:
                             CloseHandler(arrivedMessage);
                             break;
                     }
@@ -92,15 +90,14 @@ namespace ImageServiceGUI.Model
                 SourceName = tcpMessages.Args[1];
                 LogName = tcpMessages.Args[2];
                 TumbnailSize = tcpMessages.Args[3];
-                //string[] handlers = arrivedMessage.Args[4].Split(';');
-                // foreach (string handler in handlers)
                 for (int i = 4; i < tcpMessages.Args.Length; i++)
                 {
                     Handlers.Add(tcpMessages.Args[i]);
                 }
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
+                Console.WriteLine("exception in update-settingmodel" + e.Message);
 
             }
         }
@@ -155,18 +152,12 @@ namespace ImageServiceGUI.Model
                 return m_Handlers;
             }
         }
-     /**   public void addHandlers(string handler)
-        {
-            m_Handlers.Add(handler);
-            OnPropertyChanged("Handlers");
-        }**/
-        public void CloseMessage(string handler)
+        public void CloseHandler(string handler)
         {
             Console.WriteLine(handler);
-            CommandRecievedEventArgs commandRecievedEventArgs = new CommandRecievedEventArgs((int)CommandEnum.CloseClient, null, handler);
+            string[] Args= {handler };
+            CommandRecievedEventArgs commandRecievedEventArgs = new CommandRecievedEventArgs((int)CommandEnum.CloseHandlerCommand, Args, handler);
             client.Send(commandRecievedEventArgs);
-            //Handlers.Add(handler + "checckinfg=");
-            //Handlers.Remove(handler);
         }
 
     }

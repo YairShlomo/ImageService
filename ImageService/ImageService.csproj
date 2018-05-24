@@ -66,9 +66,9 @@
     <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Commands\AddLog.cs" />
+    <Compile Include="Commands\AddLogCommand.cs" />
     <Compile Include="Commands\CloseCommand.cs" />
-    <Compile Include="Commands\CloseHandler.cs" />
+    <Compile Include="Commands\CloseHandlerCommand.cs" />
     <Compile Include="Commands\LogCommand.cs" />
     <Compile Include="Commands\GetConfigCommand.cs" />
     <Compile Include="Communication\ClientHandler.cs" />

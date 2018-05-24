@@ -10,6 +10,6 @@ namespace ImageService.Infrastructure.Modal
     {
         INFO,
         WARNING,
-        FAIL
+        ERROR
     }
 }

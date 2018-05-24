@@ -34,7 +34,7 @@ namespace ImageServiceGUI.View
         {
             if (lbUsers.SelectedItem != null)
             {                 
-                vm.closeHandler(lbUsers.SelectedItem as string);
+                vm.CloseHandler(lbUsers.SelectedItem as string);
             }
         }
     }

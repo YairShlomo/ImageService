@@ -13,7 +13,7 @@ namespace ImageService.Infrastructure.Enums
         LogCommand,
         AddLog,
         CloseCommand,
-        CloseHandler,
+        CloseHandlerCommand,
         CloseClient
     }
 }

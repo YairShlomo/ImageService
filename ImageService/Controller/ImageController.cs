@@ -30,7 +30,7 @@ namespace ImageService.Controller
             CommandEnum l = CommandEnum.LogCommand;
             //CommandEnum a = CommandEnum.AddLog;
             CommandEnum c = CommandEnum.CloseCommand;
-            CommandEnum ch = CommandEnum.CloseHandler;
+            CommandEnum ch = CommandEnum.CloseHandlerCommand;
           //  CommandEnum cc = CommandEnum.CloseClient;
             commands = new Dictionary<int, ICommand>()
             {
@@ -39,8 +39,8 @@ namespace ImageService.Controller
                  {(int)g, new GetConfigCommand()},
                  { (int)l, new LogCommand(loggingService)},
                  //{ (int)a, new AddLog(m_modal)},
-                  {(int)c, new CloseCommand(m_modal)},
-                 { (int)ch, new CloseHandler(imageServer)}
+                  {(int)c, new CloseCommand(m_modal)}
+             //  { (int)ch, new CloseHandlerCommand(imageServer)}
                 // { (int)cc, new CloseClient()}
              
         };
@@ -54,7 +54,7 @@ namespace ImageService.Controller
             set
             {
                 this.imageServer = value;
-                this.commands[((int)CommandEnum.CloseHandler)] = new CloseHandler(imageServer);
+                this.commands[((int)CommandEnum.CloseHandlerCommand)] = new CloseHandlerCommand(imageServer);
 
             }
         }

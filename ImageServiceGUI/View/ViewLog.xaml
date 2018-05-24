@@ -9,13 +9,13 @@
     <UserControl.Resources>
         <Style x:Key="ItemContStyle" TargetType="{x:Type ListViewItem}">
             <Style.Triggers>
-                <DataTrigger Binding="{Binding Path=Field1}" Value="INFO">
+                <DataTrigger Binding="{Binding Path=Type}" Value="INFO">
                     <Setter Property="Background" Value="Green" />
                 </DataTrigger>
-                <DataTrigger Binding="{Binding Path=Field1}" Value="ERROR">
+                <DataTrigger Binding="{Binding Path=Type}" Value="ERROR">
                     <Setter Property="Background" Value="Red" />
                 </DataTrigger>
-                <DataTrigger Binding="{Binding Path=Field1}" Value="WARNING">
+                <DataTrigger Binding="{Binding Path=Type}" Value="WARNING">
                     <Setter Property="Background" Value="Yellow" />
                 </DataTrigger>
             </Style.Triggers>

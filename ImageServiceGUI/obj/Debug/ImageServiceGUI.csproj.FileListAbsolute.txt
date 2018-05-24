@@ -90,4 +90,3 @@ C:\Users\yair144\Documents\Visual Studio 2017\Projects\ImageService\ImageService
 C:\Users\yair144\Documents\Visual Studio 2017\Projects\ImageService\ImageServiceGUI\obj\Debug\ImageServiceGUI.csproj.CopyComplete
 C:\Users\yair144\Documents\Visual Studio 2017\Projects\ImageService\ImageServiceGUI\obj\Debug\ImageServiceGUI.exe
 C:\Users\yair144\Documents\Visual Studio 2017\Projects\ImageService\ImageServiceGUI\obj\Debug\ImageServiceGUI.pdb
-C:\Users\yair144\Documents\Visual Studio 2017\Projects\ImageService\ImageServiceGUI\obj\Debug\ImageServiceGUI.csprojResolveAssemblyReference.cache

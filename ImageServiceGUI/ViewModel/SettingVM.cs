@@ -31,7 +31,7 @@ namespace ImageServiceGUI.ViewModel
         }
         public string LogName
         {
-            get { return "model.LogName"; }
+            get { return model.LogName; }
         }
         public string OutputDirectory
         {
@@ -41,9 +41,9 @@ namespace ImageServiceGUI.ViewModel
         {
             get { return model.TumbnailSize; }
         }
-        public void closeHandler(string handler)
+        public void CloseHandler(string handler)
         {
-            model.CloseMessage(handler);
+            model.CloseHandler(handler);
         }
 
 

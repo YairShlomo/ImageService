@@ -15,7 +15,7 @@ namespace ImageServiceGUI.Model
         string LogName { get; set; }
         string TumbnailSize { get; set; }
         ObservableCollection<string> Handlers { get; }
-        void CloseMessage(string handler);
+        void CloseHandler(string handler);
 
     }
 }

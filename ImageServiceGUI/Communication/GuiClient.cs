@@ -157,6 +157,8 @@ namespace ImageServiceGUI
             {
                 try
                 {
+                   Console.WriteLine($"Sendbeforejson {commandRecievedEventArgs.RequestDirPath} to Server");
+
                     string jsonCommand = JsonConvert.SerializeObject(commandRecievedEventArgs);
                     // Send data to server
                     Console.WriteLine($"Send {jsonCommand} to Server");
@@ -193,6 +195,10 @@ namespace ImageServiceGUI
                 catch (Exception e)
                 {
                     Console.WriteLine($"excption thrown reciver"+e.Message);
+                    string[] Args = { "2", $"excption thrown reciver" + e.Message };
+                    CommandRecievedEventArgs cre = new CommandRecievedEventArgs((int)CommandEnum.AddLog, Args, null);
+                    ExecuteReceived?.Invoke(cre);
+
 
                 }
             }).Start();

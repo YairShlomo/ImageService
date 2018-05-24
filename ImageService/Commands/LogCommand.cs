@@ -39,7 +39,7 @@ namespace ImageService.Commands
             {
                 result = false;
                 string failedMessage = "LogCommand.Execute: Failed execute log command";
-                loggingService.Log(failedMessage, MessageTypeEnum.FAIL);
+                loggingService.Log(failedMessage, MessageTypeEnum.ERROR);
                 return failedMessage;
             }
         }

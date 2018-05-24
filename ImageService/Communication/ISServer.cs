@@ -70,7 +70,7 @@ namespace ImageService.Communication
             }
             catch (Exception ex)
             {
-                Logging.Log(ex.ToString(), MessageTypeEnum.FAIL);
+                Logging.Log(ex.ToString(), MessageTypeEnum.ERROR);
             }
         }
 
@@ -95,7 +95,7 @@ namespace ImageService.Communication
             }
             catch (Exception ex)
             {
-                Logging.Log(ex.ToString(), MessageTypeEnum.FAIL);
+                Logging.Log(ex.ToString(), MessageTypeEnum.ERROR);
 
             }
         }
