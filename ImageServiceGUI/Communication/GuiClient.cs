@@ -98,8 +98,7 @@ using System.Threading.Tasks;
 using System.Windows.Threading;
 using System.Threading;
 using System.Configuration;
-using Newtonsoft.Json;
-using System.Net.Sockets;
+
 using ImageService.Communication;
 using ImageService.Infrastructure.Enums;
 using System.Diagnostics;

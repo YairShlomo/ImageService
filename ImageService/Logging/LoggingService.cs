@@ -14,7 +14,7 @@ namespace ImageService.Logging
     public class LoggingService : ILoggingService
     {
         public ObservableCollection<Log> ListLog {get; set;}
-        public event UpdateLog UpdateLogEntries;
+        public event UpdateLog UpdateLogs;
         public LoggingService()
             {
             ListLog = new ObservableCollection<Log>();
@@ -49,9 +49,9 @@ namespace ImageService.Logging
             args[0] = log.Type;
             args[1] = log.Message;
             CommandRecievedEventArgs crea = new CommandRecievedEventArgs((int)CommandEnum.AddLog, args, null);
-            if (UpdateLogEntries != null)
+            if (UpdateLogs != null)
             {
-                UpdateLogEntries?.Invoke(crea);
+                UpdateLogs?.Invoke(crea);
 
             }
         }

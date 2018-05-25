@@ -140,7 +140,7 @@ namespace ImageService
             ClientHandler client = new ClientHandler(controller, logging);
             server = new ISServer(8000, logging, client);
             ImageServer.NotifyAllHandlerRemoved += server.NotifyAllClientsAboutUpdate;
-            logging.UpdateLogEntries += server.NotifyAllClientsAboutUpdate;
+            logging.UpdateLogs += server.NotifyAllClientsAboutUpdate;
 
             server.Start();
         }

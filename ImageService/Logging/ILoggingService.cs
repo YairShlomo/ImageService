@@ -17,7 +17,7 @@ namespace ImageService.Logging
 
         event EventHandler<MessageRecievedEventArgs> MessageRecieved;
         void Log(string message, MessageTypeEnum type);           // Logging the Message
-        event UpdateLog UpdateLogEntries;  //Invoked everytime a new event log entry is written to the log
+        event UpdateLog UpdateLogs;  //Invoked everytime a new event log entry is written to the log
         void InvokeUpdateEvent(string message, MessageTypeEnum type);
     }
 
