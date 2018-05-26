@@ -73,6 +73,9 @@ namespace ImageServiceGUI.Model
                         case (int)CommandEnum.CloseHandlerCommand:
                             CloseHandler(arrivedMessage);
                             break;
+                        default:
+                            //client.Close();
+                            break;
                     }
                 }
             }

@@ -41,7 +41,19 @@ namespace ImageService.Communication
             debug.write("ClientHandlerconstructor");
 
         }
-        private bool isRunning = false;
+        private bool isRunning= false;
+        public bool IsRunning  // read-write instance property
+        {
+            get
+            {
+                return isRunning;
+            }
+            set
+            {
+                isRunning = value;
+            }
+        }
+
         public static Mutex Mutex { get; set; }
         /// <summary>
         /// HandleClient function.

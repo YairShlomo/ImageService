@@ -156,19 +156,22 @@ namespace ImageServiceGUI
             {
                 try
                 {
-                   Console.WriteLine($"Sendbeforejson {commandRecievedEventArgs.RequestDirPath} to Server");
-
-                    string jsonCommand = JsonConvert.SerializeObject(commandRecievedEventArgs);
-                    // Send data to server
-                    Console.WriteLine($"Send {jsonCommand} to Server");
-                   // debug.write("send from Guiclient" + jsonCommand + "\n");
-                    mutex.WaitOne();
-                    writer.Write(jsonCommand);
-                    mutex.ReleaseMutex();
+                    if (Connected)
+                    {
+                        Console.WriteLine($"Sendbeforejson {commandRecievedEventArgs.RequestDirPath} to Server");
+                        string jsonCommand = JsonConvert.SerializeObject(commandRecievedEventArgs);
+                        // Send data to server
+                        Console.WriteLine($"Send {jsonCommand} to Server");
+                        // debug.write("send from Guiclient" + jsonCommand + "\n");
+                        mutex.WaitOne();
+                        writer.Write(jsonCommand);
+                        mutex.ReleaseMutex();
+                    }
                 }
                 catch (Exception e)
                 {
                     Console.WriteLine($"excption thrown sender" + e.Message);
+                    Close();
 
                 }
             }).Start();
@@ -197,6 +200,7 @@ namespace ImageServiceGUI
                     string[] Args = { "2", $"excption thrown reciver" + e.Message };
                     CommandRecievedEventArgs cre = new CommandRecievedEventArgs((int)CommandEnum.AddLog, Args, null);
                     ExecuteReceived?.Invoke(cre);
+                    Close();
 
 
                 }
@@ -204,10 +208,13 @@ namespace ImageServiceGUI
         }
         public void Close()
         {
+            Connected = false;
+            /*
             CommandRecievedEventArgs commandRecievedEventArgs = new CommandRecievedEventArgs((int)CommandEnum.CloseClient, null, "");
             Send(commandRecievedEventArgs);
             client.Close();
             Connected = false;
+            */
         }
     }
 }

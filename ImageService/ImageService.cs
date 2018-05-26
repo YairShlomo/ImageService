@@ -120,8 +120,8 @@ namespace ImageService
         protected override void OnStop()
         {
             eventLog1.WriteEntry("In onStop.");
-            server.Stop();
-            m_imageServer.CloseAll();
+            //server.Stop();
+           // m_imageServer.CloseAll();
         }
         protected override void OnContinue()
         {

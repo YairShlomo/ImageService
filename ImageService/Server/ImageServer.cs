@@ -116,9 +116,11 @@ namespace ImageService.Server
         /// </summary>
         public void CloseAll()
         {
+            /*
             string[] message = { "directory has been closed" };
             CommandRecievedEventArgs cre = new CommandRecievedEventArgs(4, message, "close");
             CommandRecieved.Invoke(this, cre);
+            */
         }
     }
        

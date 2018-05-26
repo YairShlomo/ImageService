@@ -23,6 +23,12 @@ namespace ImageService.Commands
                 TcpMessages tcpMessages = new TcpMessages();
                 string[] dirPaths = ConfigurationManager.AppSettings["Handler"].Split(';');
                 int sizeDirPath = dirPaths.Length;
+                Debug_program debug = new Debug_program();
+                foreach (string path in dirPaths)
+                {
+                    debug.write("paths:"+path + "\n");
+                }
+
                 tcpMessages.Args = new string[4+sizeDirPath];
                 tcpMessages.Args[0] = ConfigurationManager.AppSettings.Get("OutputDir");
                 tcpMessages.Args[1] = ConfigurationManager.AppSettings.Get("SourceName");
@@ -36,6 +42,7 @@ namespace ImageService.Commands
                 string[] Args = { tcpMessagesJson };
                 CommandRecievedEventArgs crea = new CommandRecievedEventArgs((int)CommandEnum.GetConfigCommand, Args, "");
                 string commandSerialized = JsonConvert.SerializeObject(crea);
+                debug.write(commandSerialized + "\n");
                 return commandSerialized;
             }
             catch (Exception ex)

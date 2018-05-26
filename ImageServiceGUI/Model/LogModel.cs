@@ -80,6 +80,7 @@ namespace ImageServiceGUI.Model
                             AddLog(arrivedMessage);
                             break;
                         default:
+                            //client.Close();
                             break;
                     }
                 }

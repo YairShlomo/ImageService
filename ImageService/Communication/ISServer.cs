@@ -57,6 +57,7 @@ namespace ImageService.Communication
                         try
                         {
                             TcpClient client = listener.AcceptTcpClient();
+                            //client.Close;
                             Console.WriteLine("Got new connection");
                             debug.write("Got new connection");
                             clients.Add(client);
@@ -140,6 +141,7 @@ namespace ImageService.Communication
         public void Stop()
         {
             listener.Stop();
+            ch.IsRunning = false;
         }
     }
 }
