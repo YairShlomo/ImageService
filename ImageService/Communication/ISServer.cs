@@ -25,14 +25,12 @@ namespace ImageService.Communication
         TcpListener Listener { get; set; }
         IClientHandler Ch { get; set; }
         private List<TcpClient> clients = new List<TcpClient>();
-        private Debug_program debug;
         private static Mutex m_mutex = new Mutex();
         public ISServer(int port, ILoggingService logging, IClientHandler ch)
         {
             this.port = port;
             this.Logging = logging;
             this.ch = ch;
-            debug = new Debug_program();
             ClientHandler.Mutex = m_mutex;
 
         }
@@ -59,7 +57,6 @@ namespace ImageService.Communication
                             TcpClient client = listener.AcceptTcpClient();
                             //client.Close;
                             Console.WriteLine("Got new connection");
-                            debug.write("Got new connection");
                             clients.Add(client);
                             ch.HandleClient(client, clients);
                         }

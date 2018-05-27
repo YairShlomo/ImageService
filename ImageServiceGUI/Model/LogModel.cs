@@ -15,6 +15,9 @@ namespace ImageServiceGUI.Model
     class LogModel : ILogModel
     {
         private ObservableCollection<Log> m_Log;
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LogModel"/> class.
+        /// </summary>
         public LogModel()
         {
             client = GuiClient.Instance;
@@ -29,10 +32,13 @@ namespace ImageServiceGUI.Model
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
         #endregion
+        /// <summary>
+        /// Gets or sets the client.
+        /// </summary>
+        /// <value>
+        /// The client.
+        /// </value>
         private GuiClient client { get; set; }
-
-
-
         public ObservableCollection<Log> logs
         {
             get
@@ -40,12 +46,15 @@ namespace ImageServiceGUI.Model
                 return m_Log;
             }
         }
-      /**  public void setLogs(Log log)
-        {
-            m_Log.Add(log);
-            OnPropertyChanged("Log");
-        }**/
+        /**  public void setLogs(Log log)
+          {
+              m_Log.Add(log);
+              OnPropertyChanged("Log");
+          }**/
 
+        /// <summary>
+        /// Initializes the data.
+        /// </summary>
         private void InitData()
         {
             try
@@ -65,6 +74,10 @@ namespace ImageServiceGUI.Model
             }
         }
 
+        /// <summary>
+        /// Executes the received.
+        /// </summary>
+        /// <param name="arrivedMessage">The <see cref="CommandRecievedEventArgs"/> instance containing the event data.</param>
         private void ExecuteReceived(CommandRecievedEventArgs arrivedMessage)
         {
             try
@@ -91,6 +104,10 @@ namespace ImageServiceGUI.Model
             }
         }
 
+        /// <summary>
+        /// Updates the specified arrived message.
+        /// </summary>
+        /// <param name="arrivedMessage">The <see cref="CommandRecievedEventArgs"/> instance containing the event data.</param>
         private void Update(CommandRecievedEventArgs arrivedMessage)
         {
             try
@@ -109,6 +126,10 @@ namespace ImageServiceGUI.Model
             }
         }
 
+        /// <summary>
+        /// Adds the log.
+        /// </summary>
+        /// <param name="responseObj">The <see cref="CommandRecievedEventArgs"/> instance containing the event data.</param>
         private void AddLog(CommandRecievedEventArgs responseObj)
         {
             try

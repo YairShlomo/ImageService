@@ -17,11 +17,9 @@ namespace ImageService.Commands
     class CloseHandlerCommand : ICommand
     {
         private ImageServer m_imageServer;
-        private Debug_program debug;
         public CloseHandlerCommand(ImageServer imageServer)
         {
             this.m_imageServer = imageServer;
-            debug = new Debug_program();
 
         }
 

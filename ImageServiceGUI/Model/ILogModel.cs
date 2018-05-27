@@ -12,6 +12,12 @@ namespace ImageServiceGUI.Model
     interface ILogModel : INotifyPropertyChanged
     {
         // ObservableCollection<Tuple<MessageTypeEnum, string>> LogMessages { get; set; }
+        /// <summary>
+        /// Gets the logs.
+        /// </summary>
+        /// <value>
+        /// The logs.
+        /// </value>
         ObservableCollection<Log> logs { get; }
     }
 }

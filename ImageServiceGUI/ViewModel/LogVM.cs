@@ -20,6 +20,10 @@ namespace ImageServiceGUI.ViewModel
     {
         //public ObservableCollection<MyListBoxItem> Items { get; private set; }
         private ILogModel model;
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LogVM"/> class.
+        /// </summary>
+        /// <param name="model">The model.</param>
         public LogVM(ILogModel model)
         {
             //Items = new ObservableCollection<MyListBoxItem>();
@@ -34,6 +38,12 @@ namespace ImageServiceGUI.ViewModel
         }
         public event PropertyChangedEventHandler PropertyChanged;
 
+        /// <summary>
+        /// Gets the logs.
+        /// </summary>
+        /// <value>
+        /// The logs.
+        /// </value>
         public ObservableCollection<Log> logs
         {
             get { return model.logs; }

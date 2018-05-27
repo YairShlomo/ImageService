@@ -24,7 +24,6 @@ namespace ImageService.Server
         private LinkedList<Task> tasks;
         object lockObject = new object();
         public Dictionary<string, IDirectoryHandler> Handlers { get; set; }
-        Debug_program debug;
 
         #endregion
 
@@ -48,7 +47,6 @@ namespace ImageService.Server
             m_logging = loggingService;
             m_controller = imageController;
             Handlers = new Dictionary<string, IDirectoryHandler>();
-            debug = new Debug_program();
             string[] dirPaths = ConfigurationManager.AppSettings["Handler"].Split(';');
             foreach (string path in dirPaths)
             {
@@ -82,26 +80,22 @@ namespace ImageService.Server
             {
                 if (Handlers.ContainsKey(dirArgs.DirectoryPath))
                 {
-                    debug.write("closehandler before");
                     IDirectoryHandler dirHandler = Handlers[dirArgs.DirectoryPath];
                     CommandRecieved -= dirHandler.OnCommandRecieved;
                     // CommandRecieved
                     dirHandler.StopWatcher();
                     string closingMessage = "The directory: " + dirArgs.DirectoryPath + "was closed";
-                    debug.write("closehandler :" + closingMessage);
 
                     m_logging.Log(closingMessage, MessageTypeEnum.INFO);
 
                 }
                 else
                 {
-                    debug.write("closehandler not the path:" + dirArgs.DirectoryPath);
 
                 }
             }
             catch (Exception e)
             {
-                debug.write("closehandlerserver exception :" + e.Message);
             }
 
         }

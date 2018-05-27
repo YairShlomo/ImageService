@@ -17,10 +17,21 @@ namespace ImageService.Commands
     class LogCommand : ICommand
     {
         private ILoggingService loggingService;
+        /// <summary>
+        /// Initializes a new instance of the <see cref="LogCommand"/> class.
+        /// </summary>
+        /// <param name="lg">The lg.</param>
         public LogCommand(ILoggingService lg)
         {
             loggingService = lg;
         }
+        /// <summary>
+        /// Executes the specified arguments.
+        /// </summary>
+        /// <param name="args">The arguments.</param>
+        /// <param name="result">if set to <c>true</c> [result].</param>
+        /// <param name="client"></param>
+        /// <returns></returns>
         public string Execute(string[] args, out bool result, TcpClient client = null)
         {
             try

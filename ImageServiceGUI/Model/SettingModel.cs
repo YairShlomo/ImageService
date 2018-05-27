@@ -23,6 +23,9 @@ namespace ImageServiceGUI.Model
         private string m_logName;
         private ObservableCollection<string> m_Handlers;
         public event PropertyChangedEventHandler PropertyChanged;
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SettingModel"/> class.
+        /// </summary>
         public SettingModel()
         {
             client = GuiClient.Instance;
@@ -37,7 +40,16 @@ namespace ImageServiceGUI.Model
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
         #endregion
+        /// <summary>
+        /// Gets or sets the client.
+        /// </summary>
+        /// <value>
+        /// The client.
+        /// </value>
         public GuiClient client { get; set; }
+        /// <summary>
+        /// Initializes the data.
+        /// </summary>
         private void InitData()
         {
             try
@@ -59,6 +71,10 @@ namespace ImageServiceGUI.Model
             }
         }
 
+        /// <summary>
+        /// Executes the received.
+        /// </summary>
+        /// <param name="arrivedMessage">The <see cref="CommandRecievedEventArgs"/> instance containing the event data.</param>
         private void ExecuteReceived(CommandRecievedEventArgs arrivedMessage)
         {
             try
@@ -84,6 +100,10 @@ namespace ImageServiceGUI.Model
 
             }
         }
+        /// <summary>
+        /// Updates the specified arrived message.
+        /// </summary>
+        /// <param name="arrivedMessage">The <see cref="CommandRecievedEventArgs"/> instance containing the event data.</param>
         private void Update(CommandRecievedEventArgs arrivedMessage)
         {
             try
@@ -104,6 +124,10 @@ namespace ImageServiceGUI.Model
 
             }
         }
+        /// <summary>
+        /// Closes the handler.
+        /// </summary>
+        /// <param name="arrivedMessage">The <see cref="CommandRecievedEventArgs"/> instance containing the event data.</param>
         private void CloseHandler(CommandRecievedEventArgs arrivedMessage)
         {
             if (Handlers != null && Handlers.Count > 0 && arrivedMessage.Args != null
@@ -111,7 +135,13 @@ namespace ImageServiceGUI.Model
             {
                 Handlers.Remove(arrivedMessage.Args[0]);
             }
-        }        
+        }
+        /// <summary>
+        /// Gets or sets the output directory.
+        /// </summary>
+        /// <value>
+        /// The output directory.
+        /// </value>
         public string OutputDirectory
         {
             get { return m_outputDirectory; }
@@ -120,7 +150,13 @@ namespace ImageServiceGUI.Model
                 m_outputDirectory = value;
                 OnPropertyChanged("OutputDirectory");
             }
-        }        
+        }
+        /// <summary>
+        /// Gets or sets the name of the source.
+        /// </summary>
+        /// <value>
+        /// The name of the source.
+        /// </value>
         public string SourceName
         {
             get { return m_sourceName; }
@@ -129,7 +165,13 @@ namespace ImageServiceGUI.Model
                 m_sourceName = value;
                 OnPropertyChanged("SourceName");
             }
-        }        
+        }
+        /// <summary>
+        /// Gets or sets the name of the log.
+        /// </summary>
+        /// <value>
+        /// The name of the log.
+        /// </value>
         public string LogName
         {
             get { return m_logName; }
@@ -138,7 +180,13 @@ namespace ImageServiceGUI.Model
                 m_logName = value;
                 OnPropertyChanged("LogName");
             }
-        }        
+        }
+        /// <summary>
+        /// Gets or sets the size of the tumbnail.
+        /// </summary>
+        /// <value>
+        /// The size of the tumbnail.
+        /// </value>
         public string TumbnailSize
         {
             get { return m_tumbnailSize; }
@@ -149,12 +197,22 @@ namespace ImageServiceGUI.Model
             }
         }
 
+        /// <summary>
+        /// Gets the handlers.
+        /// </summary>
+        /// <value>
+        /// The handlers.
+        /// </value>
         public ObservableCollection<string> Handlers {
             get
             {
                 return m_Handlers;
             }
         }
+        /// <summary>
+        /// Closes the handler.
+        /// </summary>
+        /// <param name="handler">The handler.</param>
         public void CloseHandler(string handler)
         {
             Console.WriteLine(handler);
